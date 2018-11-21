@@ -1,11 +1,11 @@
-package GameState;
+package gameState;
 import java.awt.*;
 import java.awt.event.*;
 
-import TileMap.Background;
-import Main.GamePanel;
+import main.GamePanel;
+import tileMap.Background;
 
-public class MenuState extends GameState {
+public class EntryState extends GameState {
 	
 	private Background background;
 	
@@ -20,14 +20,12 @@ public class MenuState extends GameState {
 	private Font titleFont;
 	private Font font;
 	
-	public MenuState(GameStateManager gsm) {
+	public EntryState(GameStateManager gsm) {
 		
 		this.gsm = gsm;
 		try {
 
-			
-			background = new Background("Resources/Backgrounds/logo.jpg", 1);
-			background.setVector(0.5,  0);
+			background = new Background("Resources/Backgrounds/banner.jpg", 1);
 			titleColor = new Color(128, 0, 0);
 			titleFont = new Font("Century Gothic", Font.PLAIN, 28);
 			font = new Font("Arial", Font.PLAIN, 12);
@@ -47,14 +45,15 @@ public class MenuState extends GameState {
 	}
 	public void draw(Graphics2D graphics) {
 		
+		// set background
 		graphics.setColor(Color.WHITE);
 		graphics.fillRect(0, 0, GamePanel.WIDTH, 186);
-		//background.draw(graphics);
 		background.infiniteScrolling(graphics);
 		// draw title
 		graphics.setColor(titleColor);
 		graphics.setFont(titleFont);
 		//graphics.drawString("Joguinho", 80, 70);
+		
 		//draw menu options
 		graphics.setColor(Color.BLACK);
 		graphics.fillRect(0, 186, GamePanel.WIDTH, GamePanel.HEIGHT - 186);
@@ -69,18 +68,17 @@ public class MenuState extends GameState {
 			graphics.drawString(options[i], 140, 200 + i * 15);
 		}
 		
-		/*graphics.setColor(Color.BLUE);
-		graphics.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
-		graphics.setColor(Color.BLACK);
-		graphics.drawString("MENU STATE", 100, 100);*/
 	}
 	
 	private void select() {
 		if(currentChoice == 0) {
 			//start
+			gsm.setCurrentState(GameStateManager.PLAYSTATE);
 		}
 		if(currentChoice == 1) {
 			//help
+			gsm.setCurrentState(GameStateManager.HELP);
+			
 		}
 		if(currentChoice == 2) {
 			System.exit(0);
@@ -89,7 +87,7 @@ public class MenuState extends GameState {
 	public void keyPressed(int key) {
 		if(key == KeyEvent.VK_ENTER) {
 			select();
-			gsm.setCurrentState(GameStateManager.PLAYSTATE);
+			//gsm.setCurrentState(GameStateManager.PLAYSTATE);
 		}
 		if(key == KeyEvent.VK_UP) {
 			currentChoice--;

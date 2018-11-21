@@ -1,8 +1,8 @@
-package Main;
+package main;
 
 import javax.swing.JPanel;
 
-import GameState.*;
+import gameState.*;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -58,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 		init();
 
-		int FPS = 30;
+		int FPS = 45;
 		int targetTime = 1000 / FPS;
 
 		long start;

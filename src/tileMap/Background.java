@@ -1,11 +1,12 @@
-package TileMap;
+package tileMap;
 
 
 import java.awt.Graphics2D;
 import javax.imageio.ImageIO;
 
-import Main.Game;
-import Main.GamePanel;
+import main.Game;
+import main.GamePanel;
+
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 
@@ -48,6 +49,16 @@ public class Background {
 		x += dx;
 		y += dy;
 	}
+	
+	public void changeImage(String str) {
+		try {
+			image = ImageIO.read(new FileInputStream(str));
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void draw(Graphics2D graphics) {
 		graphics.drawImage(image, (int)x, (int)y, null);
 		
@@ -63,11 +74,11 @@ public class Background {
 	
 	public void infiniteScrolling(Graphics2D graphics) {
 		graphics.drawImage(image, (int)x, (int)y, null);
-		if(x > 0) {
-			graphics.drawImage(image, (int)x - GamePanel.WIDTH, (int)y, null);
+		if(x < 0) {
+			graphics.drawImage(image, (int)x + GamePanel.WIDTH, (int)y, null);
 			
 		}
-		if(x == GamePanel.WIDTH)
+		if(x == GamePanel.WIDTH*-1)
 			x = 0;
 	}
 	
