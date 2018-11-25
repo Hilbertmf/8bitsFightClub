@@ -21,7 +21,6 @@ public class Help  extends GameState{
 
 	public void init() {
 		
-		//tileMap = new TileMap(30);
 		
 	}
 	public void update() {

@@ -39,6 +39,9 @@ public abstract class Entity {
 	protected boolean topLeft;
 	protected boolean topRight;
 	protected boolean bottom;
+	protected boolean roof;
+	protected boolean leftFrontier;
+	protected boolean rightFrontier;
 	
 //	protected boolean bottomLeft;
 //	protected boolean bottomRight;
@@ -107,13 +110,16 @@ public abstract class Entity {
 		
 		// bottomLeft is true if we are on the ground
 		bottom = y >= floor;
+		roof = y <= 0;
+		leftFrontier = x <= 0;
+		rightFrontier = x >= 290;
 	}
 	
 	
 	// checks whether we've run into a blocked tile or a normal tile
 	public void checkTileMapCollision() {
 		
-
+		System.out.println("y = " + y);
 		currentCol = (int)x;
 		currentRow = (int)y;
 		
@@ -130,6 +136,9 @@ public abstract class Entity {
 		calculateCorners(x, ydest);
 		
 		// going upwards
+		if(roof) {
+			dy = 0;
+		}
 		if(dy < 0) {
 			// keep going upwards
 			ytemp += dy;
@@ -168,8 +177,12 @@ public abstract class Entity {
 		 
 		// calculating for the x direction
 		calculateCorners(xdest, y);
+		if(leftFrontier || rightFrontier) {
+			dx = 0;
+		}
 		// going left
 		if(dx < 0) {
+			
 			xtemp += dx;
 			
 			/*
@@ -187,6 +200,7 @@ public abstract class Entity {
 		if(dx > 0) {
 			
 			xtemp += dx;
+			
 			/*
 			// if we hit a wall
 			if(topRight || bottomRight) {
@@ -202,10 +216,8 @@ public abstract class Entity {
 		// check if we've ran off of a cliff
 		if(!isFalling) {
 			calculateCorners(x, ydest + 1);
-			System.out.println("entrou3!, bottom = " + bottom + ", y = " + y + "dy = " + dy + "ydest = " + ydest);
 			if(!bottom) {
 				isFalling = true;
-				System.out.println("entrou4!");
 			}
 		}
 	}
@@ -221,6 +233,7 @@ public abstract class Entity {
 	public double getFloor() { return floor; }
 	public int getHealth() { return health; }
 	public int getMaxHealth() { return maxHealth; }
+	public boolean getFacingRight() { return isFacingRight; }
 	
 	
 	// setters

@@ -15,8 +15,8 @@ public class PlayState extends GameState {
 	private boolean isTurnedRight;
 	private double floor;
 	// teste
-	private Dragon player1;
-	private Megaman player2;
+	private Megaman player1;
+	private Dragon player2;
 	
 	public PlayState(GameStateManager gsm) {
 		
@@ -29,14 +29,14 @@ public class PlayState extends GameState {
 	public void init() {
 		
 		try {
-			background = new Background("Resources/Backgrounds/background-road.png", 1);
+			background = new Background("resources/backgrounds/background-road.png", 1);
 			floor = 165;
 			
-			player1 = new Dragon(floor);
+			player1 = new Megaman(floor);
 			player1.setPosition(50, 100);
 			
-			player2 = new Megaman(floor);
-			player2.setPosition(150, 100);
+			player2 = new Dragon(floor);
+			player2.setPosition(230, 100);
 			player2.setFacingRight(false);
 		} 
 		catch (Exception e) {
@@ -65,65 +65,75 @@ public class PlayState extends GameState {
 		if(key == KeyEvent.VK_ENTER) {
 			gsm.setCurrentState(GameStateManager.ENTRYSTATE);
 		}
-		if(key == KeyEvent.VK_RIGHT) {
+		
+		// player 1
+		if(key == KeyEvent.VK_D) {
 			player1.setRight(true);
 		}
-		if(key == KeyEvent.VK_LEFT) {
+		if(key == KeyEvent.VK_A) {
 			player1.setLeft(true);
 		}
-		if(key == KeyEvent.VK_UP) {
+		if(key == KeyEvent.VK_W) {
 			player1.setJumping(true);
 		}
-		// scratching
-		if(key == KeyEvent.VK_SPACE) {
+		if(key == KeyEvent.VK_J) {
 			player1.setPunching();
 		}
-		if(key == KeyEvent.VK_Z) {
-			player1.setShooting();	
+		if(key == KeyEvent.VK_K) {
+			player1.setShooting();
 		}
-		if(key == KeyEvent.VK_X) {
-			player1.setGliding(true);
+		if(key == KeyEvent.VK_L) {
+			player1.setSliding();
 		}
-		if(key == KeyEvent.VK_D) {
+		
+		// player 2
+		if(key == KeyEvent.VK_RIGHT) {
 			player2.setRight(true);
 		}
-		if(key == KeyEvent.VK_A) {
+		if(key == KeyEvent.VK_LEFT) {
 			player2.setLeft(true);
 		}
-		if(key == KeyEvent.VK_W) {
+		if(key == KeyEvent.VK_UP) {
 			player2.setJumping(true);
+		}
+		if(key == KeyEvent.VK_NUMPAD1) {
+			player2.setPunching();
+		}
+		if(key == KeyEvent.VK_NUMPAD2) {
+			player2.setShooting();	
+		}
+		if(key == KeyEvent.VK_NUMPAD3) {
+			player2.setGliding(true);
 		}
 		
 	}
 	public void keyReleased(int key) {
-		if(key == KeyEvent.VK_RIGHT) {
+		
+		
+		
+		// player 1
+		if(key == KeyEvent.VK_D) {
 			player1.setRight(false);
 		}
-		if(key == KeyEvent.VK_LEFT) {
+		if(key == KeyEvent.VK_A) {
 			player1.setLeft(false);
 		}
-		if(key == KeyEvent.VK_UP) {
+		if(key == KeyEvent.VK_W) {
 			player1.setJumping(false);
 		}
-		// scratching
-		if(key == KeyEvent.VK_SPACE) {
-			
-		}
-		if(key == KeyEvent.VK_Z) {
-			
-			
-		}
-		if(key == KeyEvent.VK_X) {
-			player1.setGliding(false);
-		}
-		if(key == KeyEvent.VK_D) {
+		
+		// player 2
+		if(key == KeyEvent.VK_RIGHT) {
 			player2.setRight(false);
 		}
-		if(key == KeyEvent.VK_A) {
+		if(key == KeyEvent.VK_LEFT) {
 			player2.setLeft(false);
 		}
-		if(key == KeyEvent.VK_W) {
+		if(key == KeyEvent.VK_UP) {
 			player2.setJumping(false);
+		}
+		if(key == KeyEvent.VK_NUMPAD3) {
+			player2.setGliding(false);
 		}
 	}
 	

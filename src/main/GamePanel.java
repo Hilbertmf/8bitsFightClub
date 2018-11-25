@@ -25,22 +25,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	// constructor time
 	public GamePanel() {
+		
 		super();
 		this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setFocusable(true);
 		requestFocus();
-
 	}
 
 	
-	  public void addNotify() { 
-		  super.addNotify();
-		  if(thread == null) {
-			 addKeyListener(this); 
-			 thread = new Thread(this); 
-			 thread.start();
-			 }
-		  }
+	public void addNotify() { 
+		super.addNotify();
+		if(thread == null) {
+			addKeyListener(this); 
+			thread = new Thread(this); 
+			thread.start();
+		}
+	}
 	 
 	// initializes variables
 	private void init() {
@@ -90,7 +90,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	}
 
-	// updates the game
 	private void update() {
 		gsm.update();
 	}
