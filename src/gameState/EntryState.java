@@ -59,6 +59,9 @@ public class EntryState extends GameState {
 			graphics.drawString(options[i], 140, 200 + i * 15);
 		}
 		
+		graphics.setColor(Color.RED);
+		graphics.drawString("by Hilbert França", 100, 170);
+		
 	}
 	
 	private void select() {
