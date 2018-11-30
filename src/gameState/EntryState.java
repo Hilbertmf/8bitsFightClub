@@ -1,9 +1,8 @@
 package gameState;
 import java.awt.*;
 import java.awt.event.*;
-
+import tileMap.*;
 import main.GamePanel;
-import tileMap.Background;
 
 public class EntryState extends GameState {
 	

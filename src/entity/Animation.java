@@ -25,7 +25,7 @@ public class Animation {
 	}
 	
 	public void setDelay(long delay) { this.delay = delay; }
-	public void setFrame(int currentFrame) {this.currentFrame = currentFrame; }
+	public void setCurrentFrame(int currentFrame) {this.currentFrame = currentFrame; }
 	
 	public void update() {
 		// handles the logic for determining whether or not move to the next frame

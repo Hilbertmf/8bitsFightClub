@@ -10,6 +10,8 @@ public class GameStateManager {
 	public static final int ENTRYSTATE = 0;
 	public static final int PLAYSTATE = 1;
 	public static final int HELP = 2;
+	public static final int PAUSE = 3;
+	public static final int CHARACTERSELECTSTATE = 4;
 	
 	public GameStateManager() {
 		
@@ -19,7 +21,8 @@ public class GameStateManager {
 		gameStates.add(new EntryState(this));
 		gameStates.add(new PlayState(this));
 		gameStates.add(new Help(this));
-		
+		gameStates.add(new Pause(this));
+		gameStates.add(new CharacterSelectState(this));
 		
 	}
 	

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class Batman extends Entity {
+	
+	private ArrayList<Batarang> batarangs;
+	
 	// animation actions
 	private static final int IDLE = 0; 
 	private static final int WALKING = 1;
@@ -15,11 +18,13 @@ public class Batman extends Entity {
 	private static final int FALLING = 3;
 	private static final int SHOOTING = 4;
 	private static final int PUNCHING = 5;
+	private static final int SLIDING = 6;
+	private static final int FLINCHING = 7;
 	
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
 	private final int[] numFrames = {
-		1, 3, 1, 1, 0, 0
+		1, 3, 1, 1, 1, 1, 1
 	};
 	
 	
@@ -33,18 +38,23 @@ public class Batman extends Entity {
 		collisionWidth = 20;
 		collisionHeight = 20;
 		
+		// x
 		moveSpeed = 0.3;
 		maxSpeed = 2.5;
 		stopSpeed = 0.5;
+		slideSpeed = 4.5;
+		// y
 		fallSpeed = 0.5;
 		maxFallSpeed = 4.0;
 		jumpStart = -7.8;
 		stopJumpSpeed = 0.3;
+		 
 		
 		isFacingRight = true;
 		
-		health = maxHealth = 10;
+		health = maxHealth = 200;
 		
+		batarangs = new ArrayList<Batarang>();
 		shootDamage = 1;
 		punchDamage = 2;
 		punchRange = 40;
@@ -52,7 +62,7 @@ public class Batman extends Entity {
 		// load sprites
 		try {
 			
-			BufferedImage spriteSheet = ImageIO.read(new FileInputStream("resources/sprites/player/batmanSpriteSheet.png"));
+			BufferedImage spriteSheet = ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/sprites/player/batmanSpriteSheet.png"));
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			for (int i = 0; i < 7; i++) {
@@ -82,8 +92,18 @@ public class Batman extends Entity {
 	// this function determines where the next position of the player is by reading keyboard input
 	private void getNextPosition() {
 		
+		if(isSliding) {
+			if(this.getFacingRight()) {
+				dx += slideSpeed;
+				if(dx > slideSpeed) dx = slideSpeed;
+			}
+			else {
+				dx -= slideSpeed;
+				if(dx < -slideSpeed) dx = -slideSpeed;
+			}
+		}
 		// movement
-		if(isLeft) {
+		else if(isLeft) {
 			dx -= moveSpeed;
 			if(dx < -maxSpeed) {
 				dx = -maxSpeed;
@@ -154,6 +174,27 @@ public class Batman extends Entity {
 			if(animation.hasPlayedOnce()) isShooting = false;
 		}
 		
+		// shooting attack
+		if(isShooting && currentAction != SHOOTING) {
+			Batarang b = new Batarang(floor, isFacingRight);
+			b.setPosition(x, y);
+			batarangs.add(b);
+		}
+		// update batarangs
+		for (int i = 0; i < batarangs.size(); i++) {
+			batarangs.get(i).update();
+			if(batarangs.get(i).shouldRemove()) {
+				batarangs.remove(i);
+				i--;
+			}
+		}
+
+		// check sliding
+		if(currentAction == SLIDING) {
+			if(animation.hasPlayedOnce()) isSliding = false;
+				
+		}
+		
 		// set animation
 		if(isPunching) {
 			if(currentAction != PUNCHING) {
@@ -167,7 +208,15 @@ public class Batman extends Entity {
 			if(currentAction != SHOOTING) {
 				currentAction = SHOOTING;
 				animation.setFrames(sprites.get(SHOOTING));
-				animation.setDelay(100);
+				animation.setDelay(200);
+				width = 30;
+			}
+		}
+		else if(isSliding) {
+			if(currentAction != SLIDING) {
+				currentAction = SLIDING;
+				animation.setFrames(sprites.get(SLIDING));
+				animation.setDelay(300);
 				width = 30;
 			}
 		}
@@ -217,6 +266,7 @@ public class Batman extends Entity {
 		if(currentAction != PUNCHING && currentAction != PUNCHING) {
 			
 		}
+		super.update();
 		
 	}
 	
@@ -225,6 +275,11 @@ public class Batman extends Entity {
 		
 		// setMapPosition();
 		
+		// draw projectiles
+		for (int i = 0; i < batarangs.size(); i++) {
+			batarangs.get(i).draw(graphics);
+		}
+
 		// draw player
 		
 		// flinching mechanic that blinks the player when he takes damage
@@ -235,13 +290,18 @@ public class Batman extends Entity {
 			}
 		}
 		
-		if(isFacingRight) {
-			graphics.drawImage(animation.getImage(),(int)x, (int)y, null);
-		}
-		// draws the sprite inverted to left
-		else {
-			graphics.drawImage(animation.getImage(),(int)(x + width), (int)y, -width, height, null);
-		}
+		super.draw(graphics);
 	}
 
+	public void setGliding(boolean b) { }
+	public void checkProjectiles(Entity enemy) {
+		// shots
+		for (int i = 0; i < batarangs.size(); i++) {
+			if(batarangs.get(i).intersects(enemy)) {
+				enemy.wasHit(shootDamage);
+				batarangs.get(i).setHit();
+			}
+		}
+	}
+	
 }

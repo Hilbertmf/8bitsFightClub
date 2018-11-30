@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import main.GamePanel;
@@ -8,12 +9,6 @@ import tileMap.TileMap;
 
 public abstract class Entity {
 
-	// tiles stuff
-	protected TileMap tileMap;
-	protected int tileSize;
-	protected double xmap;
-	protected double ymap;
-	
 	// position n' vector
 	protected double x;
 	protected double y;
@@ -52,6 +47,9 @@ public abstract class Entity {
 	protected boolean isDead;
 	protected boolean isFlinching;
 	protected long flinchTimer;
+	protected boolean isSliding;
+	protected boolean isGliding;
+	
 	
 	// shooting
 	protected boolean isShooting;
@@ -84,6 +82,7 @@ public abstract class Entity {
 	protected double maxFallSpeed;
 	protected double jumpStart;
 	protected double stopJumpSpeed;
+	protected double slideSpeed;
 	
 	// constructor
 	public Entity(double floor) {
@@ -119,12 +118,8 @@ public abstract class Entity {
 	// checks whether we've run into a blocked tile or a normal tile
 	public void checkTileMapCollision() {
 		
-		System.out.println("y = " + y);
 		currentCol = (int)x;
 		currentRow = (int)y;
-		
-	//	currentCol = (int)x / tileSize;
-	//	currentRow = (int)y / tileSize;
 		
 		// next destination positions
 		xdest = x + dx;
@@ -142,19 +137,6 @@ public abstract class Entity {
 		if(dy < 0) {
 			// keep going upwards
 			ytemp += dy;
-			/*
-			// check the top corners
-			if(topLeft || topRight) {
-				// stop moving up 
-				dy = 0;
-				// set the object just below the tile that it just hit
-				ytemp = currentRow * tileSize + collisionHeight / 2;
-			}
-			else {
-				// keep going upwards
-				ytemp += dy;
-			}
-			*/
 		}
 		// going downwards
 		if(dy > 0) {
@@ -172,8 +154,6 @@ public abstract class Entity {
 				ytemp += dy;
 			}
 		}
-		
-		
 		 
 		// calculating for the x direction
 		calculateCorners(xdest, y);
@@ -185,33 +165,12 @@ public abstract class Entity {
 			
 			xtemp += dx;
 			
-			/*
-			 * if(topLeft || bottomLeft) {
-				// stop moving
-				dx = 0;
-				xtemp = currentCol * tileSize + collisionWidth / 2;
-			}
-			else {
-				xtemp += dx;
-			}
-			*/
 		}
 		// going right
 		if(dx > 0) {
 			
 			xtemp += dx;
-			
-			/*
-			// if we hit a wall
-			if(topRight || bottomRight) {
-				dx = 0;
-				xtemp = (currentCol + 1) * tileSize - collisionWidth / 2;
-			}
-			else {
-			xtemp += dx;
-			}*/
 		}
-		
 		
 		// check if we've ran off of a cliff
 		if(!isFalling) {
@@ -234,7 +193,18 @@ public abstract class Entity {
 	public int getHealth() { return health; }
 	public int getMaxHealth() { return maxHealth; }
 	public boolean getFacingRight() { return isFacingRight; }
+	public boolean isDead() { return isDead; }
 	
+	public void wasHit(int damage) {
+		
+		if(isDead || isFlinching) return;
+		health -= damage;
+		if(health < 0) health = 0;
+		if(health == 0) isDead = true;
+		
+		isFacingRight = true;
+		flinchTimer = System.nanoTime();
+	}
 	
 	// setters
 	public void setFacingRight(boolean b) {
@@ -251,28 +221,61 @@ public abstract class Entity {
 		this.dx = dx;
 		this.dy = dy;
 	}
-	public void setMapPosition() {
-		/*
-		xmap = tileMap.getx();
-		ymap = tileMap.gety();
-		*/
-	}
 	
 	public void setLeft(boolean b) { isLeft = b; }
 	public void setRight(boolean b) { isRight = b; }
 	public void setUp(boolean b) { isUp = b; }
 	public void setDown(boolean b) { isDown = b; }
 	public void setJumping(boolean b) { isJumping = b; }
-	public void setShooting() { isShooting = true;
-	}
-	public void setPunching() {
-		isPunching = true;
+	public void setShooting() { isShooting = true; }
+	public void setPunching() {	isPunching = true; }
+	public void setGliding(boolean b) { isGliding = b; }
+	public void setSliding() { isSliding = true; }
+	
+	
+	// check whether the close attack hits
+	public void checkCloseAttack(Entity enemy) {
+		if(isPunching) {
+			if(isFacingRight) {
+				if((enemy.getx()  - (enemy.getWidth() - enemy.getCollisionWidth())) > x &&
+				   (enemy.getx()  - (enemy.getWidth() - enemy.getCollisionWidth())) < x + punchRange &&
+				   enemy.gety() > y - height/2 &&
+				   enemy.gety() < y + height/2) {
+					
+					enemy.wasHit(punchDamage);
+				}
+			}
+			else {
+				if((enemy.getx()  - (enemy.getWidth() - enemy.getCollisionWidth())) < x &&
+				  (enemy.getx()  - (enemy.getWidth() - enemy.getCollisionWidth())) > x - punchRange &&
+				   enemy.gety() > y - height/2 &&
+				   enemy.gety() < y + height/2) {
+					enemy.wasHit(punchDamage);
+				}
+			}
+		}
+		
 	}
 	
-	// returns whether or not the object is on the screen
-	public boolean notOnScreen() {
-		return x + xmap + width < 0 || x + xmap - width > GamePanel.WIDTH || y + ymap + height < 0 || y + ymap - height > GamePanel.HEIGHT;
+	public void update() {
+		if(health <= 0 ) {
+			isDead = true;
+			
+		}
 	}
 	
+	public void draw(Graphics2D graphics) {
+		
+		if(isFacingRight) {
+			graphics.drawImage(animation.getImage(),(int)x, (int)y, null);
+		}
+		// draws the sprite inverted to left
+		else {
+			graphics.drawImage(animation.getImage(),(int)(x + width), (int)y, -width, height, null);
+		
+		}
+	}
+	 
+	 
 	
 }

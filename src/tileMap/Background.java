@@ -1,11 +1,12 @@
 package tileMap;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
+
 import javax.imageio.ImageIO;
 import main.GamePanel;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-
 
 public class Background {
 	
@@ -18,11 +19,13 @@ public class Background {
 	private double moveScale;
 	
 	
-	public Background(String str, double ms) {
+	public Background(String path, double ms) {
 		
 		try {
+			InputStream in =  getClass().getClassLoader().getResourceAsStream(path);
+			if(in == null) System.out.println("NULL");
 			
-			image = ImageIO.read(new FileInputStream(str));
+			image = ImageIO.read(in);
 			moveScale = ms;
 			
 		}

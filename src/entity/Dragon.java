@@ -12,8 +12,7 @@ import java.io.FileInputStream;
 
 public class Dragon extends Entity {
 	
-	private boolean isGliding;
-	
+	private ArrayList<FireBall> fireBalls;
 	
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
@@ -55,16 +54,18 @@ public class Dragon extends Entity {
 		
 		isFacingRight = true;
 		
-		health = maxHealth = 10;
+		health = maxHealth = 150;
 		
 		shootDamage = 1;
+		fireBalls = new ArrayList<FireBall>();
 		punchDamage = 2;
 		punchRange = 40;
 		
 		// load sprites
 		try {
 			
-			BufferedImage spriteSheet = ImageIO.read(new FileInputStream("resources/sprites/player/dragonSprites.gif"));
+			BufferedImage spriteSheet = ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/sprites/player/dragonSprites.gif"));
+			//BufferedImage spriteSheet = ImageIO.read(new FileInputStream("resources/sprites/player/dragonSprites.gif"));
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			for (int i = 0; i < 7; i++) {
@@ -104,7 +105,19 @@ public class Dragon extends Entity {
 		isPunching = true;
 	}
 	
-	public void setGliding(boolean b) { isGliding = b; }
+	
+	
+	
+	public void checkProjectiles(Entity enemy) {
+		// shoots
+		for (int i = 0; i < fireBalls.size(); i++) {
+			if(fireBalls.get(i).intersects(enemy)) {
+				enemy.wasHit(shootDamage);
+				fireBalls.get(i).setHit();
+			}
+		}
+	}
+	
 	// this function determines where the next position of the player is by reading keyboard input
 	private void getNextPosition() {
 		
@@ -178,11 +191,30 @@ public class Dragon extends Entity {
 		if(currentAction == PUNCHING) {
 			if(animation.hasPlayedOnce()) isPunching = false;
 		}
-		if(currentAction == SHOOTING) {
+		else if(currentAction == SHOOTING) {
 			if(animation.hasPlayedOnce()) isShooting = false;
 		}
 		
+		// fireball attack
+		if(isShooting && currentAction != SHOOTING) {
+			FireBall fb = new FireBall(floor, isFacingRight);
+			fb.setPosition(x, y);
+			fireBalls.add(fb);
+		}
 		
+		// update fireballs
+		for (int i = 0; i < fireBalls.size(); i++) {
+			fireBalls.get(i).update();
+			if(fireBalls.get(i).shouldRemove()) {
+				fireBalls.remove(i);
+				i--;
+			}
+		}
+		
+		// fix bug of spamming shots
+		if(isPunching && isShooting) {
+			isShooting = false;
+		}
 		// set animation
 		if(isPunching) {
 			if(currentAction != PUNCHING) {
@@ -197,7 +229,7 @@ public class Dragon extends Entity {
 			if(currentAction != SHOOTING) {
 				currentAction = SHOOTING;
 				animation.setFrames(sprites.get(SHOOTING));
-				animation.setDelay(100);
+				animation.setDelay(300);
 				width = 30;
 			}
 		}
@@ -250,7 +282,7 @@ public class Dragon extends Entity {
 	
 		if(isRight) isFacingRight = true;
 		if(isLeft) isFacingRight = false;
-		
+		super.update();
 	}
 	
 	
@@ -259,6 +291,11 @@ public class Dragon extends Entity {
 		// setMapPosition();
 		
 		// draw player
+
+		// draw fireballs
+		for (int i = 0; i < fireBalls.size(); i++) {
+			fireBalls.get(i).draw(graphics);	
+		}
 		
 		// flinching mechanic that blinks the player when he takes damage
 		if(isFlinching) {
@@ -268,12 +305,6 @@ public class Dragon extends Entity {
 			}
 		}
 		
-		if(isFacingRight) {
-			graphics.drawImage(animation.getImage(),(int)x, (int)y, null);
-		}
-		// draws the sprite inverted to left
-		else {
-			graphics.drawImage(animation.getImage(),(int)(x + width), (int)y, -width, height, null);
-		}
+		super.draw(graphics);
 	}
 }

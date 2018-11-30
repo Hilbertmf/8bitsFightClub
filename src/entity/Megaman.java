@@ -1,6 +1,5 @@
 package entity;
 
-import tileMap.*;
 
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
@@ -12,8 +11,8 @@ import java.io.FileInputStream;
 
 public class Megaman extends Entity {
 	
-	private boolean isSliding;
-	private double slideSpeed;
+	
+	private ArrayList<Bullet> bullets;
 	
 	// animation actions
 	private static final int IDLE = 0; 
@@ -27,7 +26,7 @@ public class Megaman extends Entity {
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
 	private final int[] numFrames = {
-		1, 3, 1, 1, 1, 1, 1
+		1, 3, 1, 1, 3, 2, 1
 	};
 	
 	
@@ -38,8 +37,8 @@ public class Megaman extends Entity {
 		
 		width = 30;
 		height = 30;
-		collisionWidth = 20;
-		collisionHeight = 20;
+		collisionWidth = 10;
+		collisionHeight = 10;
 		
 		// x
 		moveSpeed = 0.3;
@@ -54,16 +53,18 @@ public class Megaman extends Entity {
 		
 		isFacingRight = true;
 		
-		health = maxHealth = 10;
+		health = maxHealth = 200;
 		
 		shootDamage = 1;
+		bullets = new ArrayList<Bullet>();
 		punchDamage = 2;
 		punchRange = 40;
 		
 		// load sprites
 		try {
 			
-			BufferedImage spriteSheet = ImageIO.read(new FileInputStream("resources/sprites/player/megamanSpriteSheet.png"));
+			//BufferedImage spriteSheet = ImageIO.read(new FileInputStream("resources/sprites/player/megamanSpriteSheet.png"));
+			BufferedImage spriteSheet = ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/sprites/player/megamanSpriteSheet.png"));
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			for (int i = 0; i < 7; i++) {
@@ -71,12 +72,8 @@ public class Megaman extends Entity {
 				
 				for(int j = 0; j < numFrames[i]; j++) {
 					
-					if(i != PUNCHING && i != SHOOTING) {
-						bi[j] = spriteSheet.getSubimage(j * width, i * height, width, height);
-					}
-					else {
-						bi[j] = spriteSheet.getSubimage(j * width * 2, i * height, width * 2, height);
-					}
+			bi[j] = spriteSheet.getSubimage(j * width, i * height, width, height);
+					
 				}
 				
 				sprites.add(bi);
@@ -93,7 +90,15 @@ public class Megaman extends Entity {
 		isFalling = true;
 	}
 	
-	
+	public void checkProjectiles(Entity enemy) {
+		// shots
+		for (int i = 0; i < bullets.size(); i++) {
+			if(bullets.get(i).intersects(enemy)) {
+				enemy.wasHit(shootDamage);
+				bullets.get(i).setHit();
+			}
+		}
+	}
 	
 	// this function determines where the next position of the player is by reading keyboard input
 	private void getNextPosition() {
@@ -121,7 +126,6 @@ public class Megaman extends Entity {
 				dx -= moveSpeed;
 				if(dx < -maxSpeed) {
 					dx = -maxSpeed;
-				
 				}
 			}
 		}
@@ -197,15 +201,37 @@ public class Megaman extends Entity {
 		if(currentAction == SHOOTING) {
 			if(animation.hasPlayedOnce()) isShooting = false;
 		}
+		
+		// shooting attack
+		if(isShooting && currentAction != SHOOTING) {
+			Bullet b = new Bullet(floor, isFacingRight);
+			b.setPosition(x, y);
+			bullets.add(b);
+		}
+		// update bullets
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).update();
+			if(bullets.get(i).shouldRemove()) {
+				bullets.remove(i);
+				i--;
+			}
+		}
+		
+		// check sliding
 		if(currentAction == SLIDING) {
 			if(animation.hasPlayedOnce()) isSliding = false;
+		}
+		
+		// fix bug of spamming shots
+		if(isPunching && isShooting) {
+			isShooting = false;
 		}
 		// set animation
 		if(isPunching) {
 			if(currentAction != PUNCHING) {
 				currentAction = PUNCHING;
 				animation.setFrames(sprites.get(PUNCHING));
-				animation.setDelay(50);
+				animation.setDelay(100);
 				width = 30;
 			}
 		}
@@ -272,15 +298,17 @@ public class Megaman extends Entity {
 		if(currentAction != PUNCHING && currentAction != PUNCHING) {
 			
 		}
-		
+		super.update();
 	}
 	
 	
 	public void draw(Graphics2D graphics) {
 		
-		// setMapPosition();
 		
-		// draw player
+		// draw bullets
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).draw(graphics);
+		}
 		
 		// flinching mechanic that blinks the player when he takes damage
 		if(isFlinching) {
@@ -290,16 +318,8 @@ public class Megaman extends Entity {
 			}
 		}
 		
-		if(isFacingRight) {
-			graphics.drawImage(animation.getImage(),(int)x, (int)y, null);
-		}
-		// draws the sprite inverted to left
-		else {
-			graphics.drawImage(animation.getImage(),(int)(x + width), (int)y, -width, height, null);
-		}
+		super.draw(graphics);
 	}
 	
-	public void setSliding() {
-		isSliding = true;
-	}
+	
 }
