@@ -64,10 +64,11 @@ public class EntryState extends GameState {
 	private void select() {
 		if(currentChoice == 0) {
 			//start
-			gsm.setCurrentState(GameStateManager.PLAYSTATE);
+			gsm.setCurrentState(GameStateManager.CHARACTERSELECTSTATE);
 		}
 		if(currentChoice == 1) {
 			//help
+			Help.shouldReturnToEntry = true;
 			gsm.setCurrentState(GameStateManager.HELP);
 		}
 		if(currentChoice == 2) {

@@ -10,10 +10,11 @@ import tileMap.Background;
 public class Help  extends GameState{
 
 	private Background background;
+	public static boolean shouldReturnToEntry;
 	
 	public Help(GameStateManager gsm) {
 		
-		this.gsm = gsm;
+ 		this.gsm = gsm;
 		init();
 		
 	}
@@ -31,7 +32,23 @@ public class Help  extends GameState{
 		graphics.setColor(Color.WHITE);
 		graphics.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 		graphics.setColor(Color.BLACK);
-		graphics.drawString("SO DEUS AJUDA", 100, 100);
+		//graphics.drawString("SO DEUS AJUDA", 100, 100);
+		graphics.drawString("CONTROLS", 125, 20);
+		graphics.drawString("PLAYER 1", 50, 50);
+		graphics.drawString("Up: W", 50, 70);
+		graphics.drawString("Left: A", 50, 90);
+		graphics.drawString("Right: D", 50, 110);
+		graphics.drawString("Shoot: J", 50, 130);
+		graphics.drawString("Punch: K", 50, 150);
+		graphics.drawString("Slide/Glide: L", 50, 170);
+		
+		graphics.drawString("PLAYER 2", 200, 50);
+		graphics.drawString("Up: Up-arrow", 200, 70);
+		graphics.drawString("Left: Left-arrow", 200, 90);
+		graphics.drawString("Right: Right-arrow", 200, 110);
+		graphics.drawString("Shoot: 1", 200, 130);
+		graphics.drawString("Punch: 2", 200, 150);
+		graphics.drawString("Slide/Glide: 3", 200, 170);
 	}
 
 
@@ -39,7 +56,10 @@ public class Help  extends GameState{
 	public void keyPressed(int key) {
 		
 		if(key == KeyEvent.VK_ENTER) {
-			gsm.setCurrentState(GameStateManager.ENTRYSTATE);
+			if(shouldReturnToEntry)
+				gsm.setCurrentState(GameStateManager.ENTRYSTATE);
+			else
+				gsm.setCurrentState(GameStateManager.CHARACTERSELECTSTATE);
 		}
 	}
 
@@ -50,5 +70,6 @@ public class Help  extends GameState{
 		
 	}
 
+	
 }
 	

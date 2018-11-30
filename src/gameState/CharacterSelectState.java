@@ -17,7 +17,8 @@ public class CharacterSelectState extends GameState {
 			"DRAGON",
 			"MEGAMAN",
 			"BATMAN",
-			"SPIDERMAN",
+			"SPIDER-MAN",
+			"TUTORIAL",
 			"CLOSE"
 	};
 	
@@ -25,9 +26,10 @@ public class CharacterSelectState extends GameState {
 	public static final int MEGAMAN = 1;
 	public static final int BATMAN = 2;
 	public static final int SPIDERMAN = 3;
-	public static final int EXIT = 4;
-	private static int player1Choice;
-	private static int player2Choice;
+	public static final int TUTORIAL = 4;
+	public static final int EXIT = 5;
+	public static int player1Choice;
+	public static int player2Choice;
 	
 	private BufferedImage dragonModel;
 	private BufferedImage megamanModel;
@@ -109,6 +111,10 @@ public class CharacterSelectState extends GameState {
 				gsm.setCurrentState(GameStateManager.PLAYSTATE);
 			}
 		}
+		if(currentChoice == TUTORIAL) {
+			Help.shouldReturnToEntry = false;
+			gsm.setCurrentState(GameStateManager.HELP);
+		}
 		if(currentChoice == EXIT) {
 			System.exit(0);
 		}
@@ -119,6 +125,9 @@ public class CharacterSelectState extends GameState {
 		
 		graphics.setColor(Color.BLACK);
 		graphics.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+		
+		graphics.setColor(Color.RED);
+		graphics.drawString("CHOOSE YOUR DESTINY", 80, 20);
 		
 		for (int i = 0; i < options.length; i++) {
 			
@@ -144,9 +153,9 @@ public class CharacterSelectState extends GameState {
 			
 			graphics.setColor(Color.RED);
 			if(isPlayer1Turn)
-				graphics.drawString("PLAYER 1", 120, 20);
+				graphics.drawString("PLAYER 1", 120, 70);
 			else
-				graphics.drawString("PLAYER 2", 120, 20);
+				graphics.drawString("PLAYER 2", 120, 70);
 		}
 	}
 	public void keyPressed(int key) {

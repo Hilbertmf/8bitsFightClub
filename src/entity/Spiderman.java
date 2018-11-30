@@ -1,25 +1,14 @@
 package entity;
 
-import tileMap.*;
-
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-
-public class Dragon extends Entity {
+public class Spiderman extends Entity {
 	
-	private ArrayList<FireBall> fireBalls;
-	
-	// animations
-	private ArrayList<BufferedImage[]> sprites;
-	private final int[] numFrames = {
-		2, 8, 1, 2, 2, 5, 4
-	};
-	
+	private ArrayList<Stickyweb> stickywebs;
 	
 	// animation actions
 	private static final int IDLE = 0; 
@@ -28,8 +17,18 @@ public class Dragon extends Entity {
 	private static final int FALLING = 3;
 	private static final int SHOOTING = 4;
 	private static final int PUNCHING = 5;
-	private static final int GLIDING = 6;	
-	public Dragon(double floor) {
+	private static final int SLIDING = 6;
+	private static final int FLINCHING = 7;
+	
+	// animations
+	private ArrayList<BufferedImage[]> sprites;
+	private final int[] numFrames = {
+		1, 3, 1, 1, 1, 1, 1
+	};
+	
+	
+	
+	public Spiderman(double floor) {
 		
 		super(floor);
 		
@@ -38,38 +37,39 @@ public class Dragon extends Entity {
 		collisionWidth = 20;
 		collisionHeight = 20;
 		
-		moveSpeed = 0.25;
-		maxSpeed = 2.0;
-		stopSpeed = 0.4;
-		fallSpeed = 0.15;
+		// x
+		moveSpeed = 0.5;
+		maxSpeed = 3.5;
+		stopSpeed = 0.5;
+		slideSpeed = 5.5;
+		// y
+		fallSpeed = 0.5;
 		maxFallSpeed = 4.0;
-		jumpStart = -4.8;
+		jumpStart = -7.8;
 		stopJumpSpeed = 0.3;
+		 
 		
 		isFacingRight = true;
 		
-		health = maxHealth = 150;
+		health = maxHealth = 200;
 		
+		stickywebs = new ArrayList<Stickyweb>();
 		shootDamage = 1;
-		fireBalls = new ArrayList<FireBall>();
 		punchDamage = 2;
 		punchRange = 40;
 		
 		// load sprites
 		try {
 			
-			BufferedImage spriteSheet = ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/sprites/player/dragonSprites.gif"));
+			BufferedImage spriteSheet = ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/sprites/player/spidermanSpriteSheet.png"));
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			for (int i = 0; i < 7; i++) {
 				BufferedImage[] bi = new BufferedImage[numFrames[i]];
 				
 				for(int j = 0; j < numFrames[i]; j++) {
-					if(i != PUNCHING){
-						bi[j] = spriteSheet.getSubimage(j * width, i * height, width, height);
-					} 
-					else
-						bi[j] = spriteSheet.getSubimage(j * width * 2, i * height, width * 2, height); 
+					
+					bi[j] = spriteSheet.getSubimage(j * width, i * height, width, height); 
 				}
 				
 				sprites.add(bi);
@@ -83,40 +83,26 @@ public class Dragon extends Entity {
 		currentAction = IDLE;
 		animation.setFrames(sprites.get(IDLE));
 		animation.setDelay(400);
+		isFalling = true;
 	}
 	
 	
-	// getters
-	public int getHealth() { return health; }
-	public int getMaxHealth() { return maxHealth; }
-	
-	// setters
-	public void setShooting() {
-		isShooting = true;
-	}
-	public void setPunching() {
-		isPunching = true;
-	}
-	
-	
-	
-	
-	public void checkProjectiles(Entity enemy) {
-		// shoots
-		for (int i = 0; i < fireBalls.size(); i++) {
-			if(fireBalls.get(i).intersects(enemy)) {
-				fireBalls.get(i).setHit();
-				enemy.wasHit(shootDamage);
-				
-			}
-		}
-	}
 	
 	// this function determines where the next position of the player is by reading keyboard input
 	private void getNextPosition() {
 		
+		if(isSliding) {
+			if(this.getFacingRight()) {
+				dx += slideSpeed;
+				if(dx > slideSpeed) dx = slideSpeed;
+			}
+			else {
+				dx -= slideSpeed;
+				if(dx < -slideSpeed) dx = -slideSpeed;
+			}
+		}
 		// movement
-		if(isLeft) {
+		else if(isLeft) {
 			dx -= moveSpeed;
 			if(dx < -maxSpeed) {
 				dx = -maxSpeed;
@@ -157,18 +143,15 @@ public class Dragon extends Entity {
 		
 		// falling
 		if(isFalling) {
-			if(isGliding) {
-				dy += 0.1 * fallSpeed;
-				if(dy > maxFallSpeed * 0.1) dy = maxFallSpeed * 0.1;
-			}
-			else {
-				dy += fallSpeed;
-				
-				if(dy > 0) isJumping = false;
-				// this makes the longer you hold the jump button the higher you'll jump
-				if(dy < 0 && !isJumping) dy += stopJumpSpeed;
-				if(dy > maxFallSpeed) dy = maxFallSpeed;
-			}
+			
+			dy += fallSpeed;
+			
+			if(dy > 0) isJumping = false;
+			// this makes the longer you hold the jump button the higher you'll jump
+			if(dy < 0 && !isJumping) dy += stopJumpSpeed;
+			if(dy > maxFallSpeed) dy = maxFallSpeed;
+			
+			 
 		}
 		
 	}
@@ -185,66 +168,71 @@ public class Dragon extends Entity {
 		if(currentAction == PUNCHING) {
 			if(animation.hasPlayedOnce()) isPunching = false;
 		}
-		else if(currentAction == SHOOTING) {
+		if(currentAction == SHOOTING) {
 			if(animation.hasPlayedOnce()) isShooting = false;
 		}
 		
-		// fireball attack
+		// shooting attack
 		if(isShooting && currentAction != SHOOTING) {
-			FireBall fb = new FireBall(floor, isFacingRight);
-			fb.setPosition(x, y);
-			fireBalls.add(fb);
+			Stickyweb s = new Stickyweb(floor, isFacingRight);
+			s.setPosition(x, y);
+			stickywebs.add(s);
 		}
-		
-		// update fireballs
-		for (int i = 0; i < fireBalls.size(); i++) {
-			fireBalls.get(i).update();
-			if(fireBalls.get(i).shouldRemove()) {
-				fireBalls.remove(i);
+		// update stickies
+		for (int i = 0; i < stickywebs.size(); i++) {
+			stickywebs.get(i).update();
+			if(stickywebs.get(i).shouldRemove()) {
+				stickywebs.remove(i);
 				i--;
 			}
 		}
+
+		// check sliding
+		if(currentAction == SLIDING) {
+			if(animation.hasPlayedOnce()) isSliding = false;
+				
+		}
 		
 		// fix bug of spamming shots
-		if(isPunching && isShooting) {
-			isShooting = false;
-		}
+				if(isPunching && isShooting) {
+					isShooting = false;
+				}
+		
 		// set animation
 		if(isPunching) {
 			if(currentAction != PUNCHING) {
 				currentAction = PUNCHING;
 				animation.setFrames(sprites.get(PUNCHING));
 				animation.setDelay(50);
-				width = 60;
+				width = 30;
 			}
 		}
-		
 		else if(isShooting) {
 			if(currentAction != SHOOTING) {
 				currentAction = SHOOTING;
 				animation.setFrames(sprites.get(SHOOTING));
+				animation.setDelay(200);
+				width = 30;
+			}
+		}
+		else if(isSliding) {
+			if(currentAction != SLIDING) {
+				currentAction = SLIDING;
+				animation.setFrames(sprites.get(SLIDING));
 				animation.setDelay(300);
 				width = 30;
 			}
 		}
-		else if(isGliding) {
-			if(currentAction != GLIDING) {
-				currentAction = GLIDING;
-				animation.setFrames(sprites.get(GLIDING));
-				animation.setDelay(100);
-				width = 30;
-			}
-		}
-		else if(dy > 0) {
+		else if(isFalling) {
 			if(currentAction != FALLING) {
 				currentAction = FALLING;
 				animation.setFrames(sprites.get(FALLING));
-				animation.setDelay(100);
+				animation.setDelay(-1);
 				width = 30;
 			}
 		
 		}
-		else if(dy < 0) {
+		else if(isJumping) {
 			if(currentAction != JUMPING) {
 				currentAction = JUMPING;
 				animation.setFrames(sprites.get(JUMPING));
@@ -256,7 +244,7 @@ public class Dragon extends Entity {
 			if(currentAction != WALKING) {
 				currentAction = WALKING;
 				animation.setFrames(sprites.get(WALKING));
-				animation.setDelay(40);
+				animation.setDelay(100);
 				width = 30;
 			}
 		}
@@ -273,10 +261,16 @@ public class Dragon extends Entity {
 		
 		// set direction
 		// the player currently cannot move while attacking 
-	
+		
+		 
 		if(isRight) isFacingRight = true;
 		if(isLeft) isFacingRight = false;
+		
+		if(currentAction != PUNCHING && currentAction != PUNCHING) {
+			
+		}
 		super.update();
+		
 	}
 	
 	
@@ -284,12 +278,12 @@ public class Dragon extends Entity {
 		
 		// setMapPosition();
 		
-		// draw player
-
-		// draw fireballs
-		for (int i = 0; i < fireBalls.size(); i++) {
-			fireBalls.get(i).draw(graphics);	
+		// draw projectiles
+		for (int i = 0; i < stickywebs.size(); i++) {
+			stickywebs.get(i).draw(graphics);
 		}
+
+		// draw player
 		
 		// flinching mechanic that blinks the player when he takes damage
 		if(isFlinching) {
@@ -301,4 +295,16 @@ public class Dragon extends Entity {
 		
 		super.draw(graphics);
 	}
+
+	public void setGliding(boolean b) { }
+	public void checkProjectiles(Entity enemy) {
+		// shots
+		for (int i = 0; i < stickywebs.size(); i++) {
+			if(stickywebs.get(i).intersects(enemy)) {
+				enemy.wasHit(shootDamage);
+				stickywebs.get(i).setHit();
+			}
+		}
+	}
+	
 }

@@ -13,7 +13,6 @@ public class Pause extends GameState {
 	private String[] options = {
 			"Resume",
 			"Back to Menu",
-			"Character Selection Screen",
 			"Quit"
 	};
 	
@@ -36,12 +35,9 @@ public class Pause extends GameState {
 			gsm.setCurrentState(GameStateManager.PLAYSTATE);
 		}
 		if(currentChoice == 1) {
-			gsm.setCurrentState(GameStateManager.ENTRYSTATE);
-		}
-		if(currentChoice == 2) {
 			gsm.setCurrentState(GameStateManager.CHARACTERSELECTSTATE);
 		}
-		if(currentChoice == 3) {
+		if(currentChoice == 2) {
 			System.exit(0);
 		}
 	}
@@ -79,7 +75,7 @@ public class Pause extends GameState {
 			else {
 				graphics.setColor(Color.RED);
 			}
-			graphics.drawString(options[i], 120, 200 + i * 15);
+			graphics.drawString(options[i], 120, 190 + i * 15);
 		}
 		
 	}

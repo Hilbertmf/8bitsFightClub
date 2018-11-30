@@ -198,11 +198,11 @@ public abstract class Entity {
 	public void wasHit(int damage) {
 		
 		if(isDead || isFlinching) return;
+		
 		health -= damage;
 		if(health < 0) health = 0;
 		if(health == 0) isDead = true;
 		
-		isFacingRight = true;
 		flinchTimer = System.nanoTime();
 	}
 	
@@ -257,6 +257,7 @@ public abstract class Entity {
 		
 	}
 	
+	public void checkProjectiles(Entity enemy) { };
 	public void update() {
 		if(health <= 0 ) {
 			isDead = true;

@@ -15,9 +15,9 @@ public class PlayState extends GameState {
 	// teste
 	private HUD hud1;
 	private HUD hud2;
-	private Megaman player1;
+	private Entity player1;
 	private boolean isPlayer1Dragon;
-	private Batman player2;
+	private Entity player2;
 	private boolean isPlayer2Dragon;
 	
 	
@@ -29,28 +29,59 @@ public class PlayState extends GameState {
 	}
 	
 
+	private void checkCharacters() {
+		
+		// check for player 1
+		if(CharacterSelectState.player1Choice == CharacterSelectState.DRAGON) {
+			player1 = new Dragon(floor);
+			isPlayer1Dragon = true;
+		}
+		else if(CharacterSelectState.player1Choice == CharacterSelectState.MEGAMAN) {
+			player1 = new Megaman(floor);
+			isPlayer1Dragon = false;
+		}
+		else if(CharacterSelectState.player1Choice == CharacterSelectState.BATMAN) {
+			player1 = new Batman(floor);
+			isPlayer1Dragon = false;
+		}
+		else if(CharacterSelectState.player1Choice == CharacterSelectState.SPIDERMAN) {
+			player1 = new Spiderman(floor);
+			isPlayer1Dragon = false;
+		}
+		
+		// check for player 2
+		if(CharacterSelectState.player2Choice == CharacterSelectState.DRAGON) {
+			player2 = new Dragon(floor);
+			isPlayer2Dragon = true;
+		}
+		else if(CharacterSelectState.player2Choice == CharacterSelectState.MEGAMAN) {
+			player2 = new Megaman(floor);
+			isPlayer2Dragon = false;
+		}
+		else if(CharacterSelectState.player2Choice == CharacterSelectState.BATMAN) {
+			player2 = new Batman(floor);
+			isPlayer2Dragon = false;
+		}
+		else if(CharacterSelectState.player2Choice == CharacterSelectState.SPIDERMAN) {
+			player2 = new Spiderman(floor);
+			isPlayer2Dragon = false;
+		}
+	}
+	
 	public void init() {
 		
 		try {
 			background = new Background("resources/backgrounds/background-road.png", 1);
 			floor = 165;
 			
-			if(!CharacterSelectState.getHappened()) {
-				player1 = new Megaman(floor);
-				player1.setPosition(50, 100);
-				isPlayer1Dragon = false;
-				
-				player2 = new Batman(floor);
-				player2.setPosition(230, 100);
-				player2.setFacingRight(false);
-				isPlayer2Dragon = false; 
-			}
-			else {
-				// player 1:
-				//if(CharacterSelectState.getPlayer1Choice() == CharacterSelectState.DRAGON) {
-					//Dragon playerOne = new Dragon(floor); 
-				//}
-			}
+			
+			checkCharacters();
+			
+			player1.setPosition(50, 100);
+			
+			player2.setPosition(230, 100);
+			player2.setFacingRight(false);
+			
 			
 			hud1 = new HUD(player1);
 			hud2 = new HUD(player2);

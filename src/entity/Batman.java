@@ -2,7 +2,6 @@ package entity;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -194,6 +193,10 @@ public class Batman extends Entity {
 			if(animation.hasPlayedOnce()) isSliding = false;
 				
 		}
+		// fix bug of spamming shots
+				if(isPunching && isShooting) {
+					isShooting = false;
+				}
 		
 		// set animation
 		if(isPunching) {
