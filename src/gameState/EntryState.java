@@ -60,7 +60,8 @@ public class EntryState extends GameState {
 		}
 		
 		graphics.setColor(Color.RED);
-		graphics.drawString("by Hilbert França", 100, 170);
+		graphics.drawString("by Hilbert França", 100, 165);
+		graphics.drawString("github.com/Hilbertmf", 100, 180);
 		
 	}
 	

@@ -51,7 +51,7 @@ public class Spiderman extends Entity {
 		
 		isFacingRight = true;
 		
-		health = maxHealth = 200;
+		health = maxHealth = 40;
 		
 		stickywebs = new ArrayList<Stickyweb>();
 		shootDamage = 1;
@@ -86,6 +86,21 @@ public class Spiderman extends Entity {
 		isFalling = true;
 	}
 	
+	public void checkProjectiles(Entity enemy) {
+		// shots
+		for (int i = 0; i < stickywebs.size(); i++) {
+			if(stickywebs.get(i).intersects(enemy)) {
+				enemy.wasHit(shootDamage);
+				stickywebs.get(i).setHit();
+			}
+		}
+	}
+	
+	public void checkAttack(Entity enemy) {
+		
+		this.checkProjectiles(enemy);
+		super.checkCloseAttack(enemy);
+	}
 	
 	
 	// this function determines where the next position of the player is by reading keyboard input
@@ -194,9 +209,9 @@ public class Spiderman extends Entity {
 		}
 		
 		// fix bug of spamming shots
-				if(isPunching && isShooting) {
-					isShooting = false;
-				}
+		if(isPunching && isShooting) {
+			isShooting = false;
+		}
 		
 		// set animation
 		if(isPunching) {
@@ -276,35 +291,26 @@ public class Spiderman extends Entity {
 	
 	public void draw(Graphics2D graphics) {
 		
-		// setMapPosition();
-		
 		// draw projectiles
 		for (int i = 0; i < stickywebs.size(); i++) {
 			stickywebs.get(i).draw(graphics);
 		}
-
-		// draw player
 		
 		// flinching mechanic that blinks the player when he takes damage
 		if(isFlinching) {
 			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
-			if(elapsed / 100 % 2 == 0) {
+			
+			if(elapsed / 100 % 2 == 0) 
 				return;
-			}
 		}
 		
+		// draw player
 		super.draw(graphics);
+		
+		
 	}
 
 	public void setGliding(boolean b) { }
-	public void checkProjectiles(Entity enemy) {
-		// shots
-		for (int i = 0; i < stickywebs.size(); i++) {
-			if(stickywebs.get(i).intersects(enemy)) {
-				enemy.wasHit(shootDamage);
-				stickywebs.get(i).setHit();
-			}
-		}
-	}
+	
 	
 }

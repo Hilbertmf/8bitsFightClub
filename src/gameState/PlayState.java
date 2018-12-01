@@ -99,13 +99,15 @@ public class PlayState extends GameState {
 		player2.update();
 		
 		// attack
-		player1.checkCloseAttack(player2);
+		//player1.checkCloseAttack(player2);
 		if(!player2.isDead())
-			player1.checkProjectiles(player2);
+			player1.checkAttack(player2);
+			//player1.checkProjectiles(player2);
 		
 		player2.checkCloseAttack(player1);
 		if(!player1.isDead())
-			player2.checkProjectiles(player1);
+			player2.checkAttack(player1);
+			//player2.checkProjectiles(player1);
 		
 	}
 	public void draw(Graphics2D graphics) {

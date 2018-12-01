@@ -195,16 +195,7 @@ public abstract class Entity {
 	public boolean getFacingRight() { return isFacingRight; }
 	public boolean isDead() { return isDead; }
 	
-	public void wasHit(int damage) {
-		
-		if(isDead || isFlinching) return;
-		
-		health -= damage;
-		if(health < 0) health = 0;
-		if(health == 0) isDead = true;
-		
-		flinchTimer = System.nanoTime();
-	}
+	
 	
 	// setters
 	public void setFacingRight(boolean b) {
@@ -232,6 +223,16 @@ public abstract class Entity {
 	public void setGliding(boolean b) { isGliding = b; }
 	public void setSliding() { isSliding = true; }
 	
+	public void wasHit(int damage) {
+		
+		if(isFlinching) return;
+		
+		health -= damage;
+		if(health < 0) health = 0;
+		if(health == 0) isDead = true;
+		isFlinching = true;
+		flinchTimer = System.nanoTime();
+	}
 	
 	// check whether the close attack hits
 	public void checkCloseAttack(Entity enemy) {
@@ -258,12 +259,24 @@ public abstract class Entity {
 	}
 	
 	public void checkProjectiles(Entity enemy) { };
+	public void checkAttack(Entity enemy) { };
 	public void update() {
+		
+		// checks if is dead
 		if(health <= 0 ) {
 			isDead = true;
 			
 		}
+		
+		// checks if is flinching
+		if(isFlinching) {
+			
+			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
+			if(elapsed > 1000) 
+				isFlinching = false;
+		}
 	}
+	
 	
 	public void draw(Graphics2D graphics) {
 		
@@ -275,6 +288,8 @@ public abstract class Entity {
 			graphics.drawImage(animation.getImage(),(int)(x + width), (int)y, -width, height, null);
 		
 		}
+		
+		
 	}
 	 
 	 

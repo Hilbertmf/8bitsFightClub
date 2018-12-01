@@ -23,7 +23,7 @@ public class Batman extends Entity {
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
 	private final int[] numFrames = {
-		1, 3, 1, 1, 1, 1, 1
+		1, 3, 1, 1, 1, 1, 1, 2
 	};
 	
 	
@@ -34,8 +34,8 @@ public class Batman extends Entity {
 		
 		width = 30;
 		height = 30;
-		collisionWidth = 20;
-		collisionHeight = 20;
+		collisionWidth = 18;
+		collisionHeight = 18;
 		
 		// x
 		moveSpeed = 0.3;
@@ -51,11 +51,11 @@ public class Batman extends Entity {
 		
 		isFacingRight = true;
 		
-		health = maxHealth = 200;
+		health = maxHealth = 85;
 		
 		batarangs = new ArrayList<Batarang>();
-		shootDamage = 1;
-		punchDamage = 2;
+		shootDamage = 2;
+		punchDamage = 3;
 		punchRange = 40;
 		
 		// load sprites
@@ -64,7 +64,7 @@ public class Batman extends Entity {
 			BufferedImage spriteSheet = ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/sprites/player/batmanSpriteSheet.png"));
 			
 			sprites = new ArrayList<BufferedImage[]>();
-			for (int i = 0; i < 7; i++) {
+			for (int i = 0; i < 8; i++) {
 				BufferedImage[] bi = new BufferedImage[numFrames[i]];
 				
 				for(int j = 0; j < numFrames[i]; j++) {
@@ -86,7 +86,21 @@ public class Batman extends Entity {
 		isFalling = true;
 	}
 	
+	public void checkProjectiles(Entity enemy) {
+		// shots
+		for (int i = 0; i < batarangs.size(); i++) {
+			if(batarangs.get(i).intersects(enemy)) {
+				enemy.wasHit(shootDamage);
+				batarangs.get(i).setHit();
+			}
+		}
+	}
 	
+	public void checkAttack(Entity enemy) {
+		
+		this.checkProjectiles(enemy);
+		super.checkCloseAttack(enemy);
+	}
 	
 	// this function determines where the next position of the player is by reading keyboard input
 	private void getNextPosition() {
@@ -194,10 +208,10 @@ public class Batman extends Entity {
 				
 		}
 		// fix bug of spamming shots
-				if(isPunching && isShooting) {
-					isShooting = false;
-				}
-		
+		if(isPunching && isShooting) {
+			isShooting = false;
+		}
+
 		// set animation
 		if(isPunching) {
 			if(currentAction != PUNCHING) {
@@ -258,7 +272,7 @@ public class Batman extends Entity {
 		}
 		
 		animation.update();
-		
+		super.update();
 		// set direction
 		// the player currently cannot move while attacking 
 		
@@ -276,16 +290,16 @@ public class Batman extends Entity {
 	
 	public void draw(Graphics2D graphics) {
 		
-		// setMapPosition();
+		
 		
 		// draw projectiles
 		for (int i = 0; i < batarangs.size(); i++) {
 			batarangs.get(i).draw(graphics);
 		}
 
-		// draw player
 		
 		// flinching mechanic that blinks the player when he takes damage
+		
 		if(isFlinching) {
 			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
 			if(elapsed / 100 % 2 == 0) {
@@ -293,18 +307,14 @@ public class Batman extends Entity {
 			}
 		}
 		
+		
+		// draw player
 		super.draw(graphics);
+		
+		
 	}
 
 	public void setGliding(boolean b) { }
-	public void checkProjectiles(Entity enemy) {
-		// shots
-		for (int i = 0; i < batarangs.size(); i++) {
-			if(batarangs.get(i).intersects(enemy)) {
-				enemy.wasHit(shootDamage);
-				batarangs.get(i).setHit();
-			}
-		}
-	}
+	
 	
 }

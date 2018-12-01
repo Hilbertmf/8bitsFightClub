@@ -53,7 +53,7 @@ public class Megaman extends Entity {
 		
 		isFacingRight = true;
 		
-		health = maxHealth = 200;
+		health = maxHealth = 75;
 		
 		shootDamage = 1;
 		bullets = new ArrayList<Bullet>();
@@ -98,6 +98,12 @@ public class Megaman extends Entity {
 				bullets.get(i).setHit();
 			}
 		}
+	}
+	
+	public void checkAttack(Entity enemy) {
+		
+		this.checkProjectiles(enemy);
+		super.checkCloseAttack(enemy);
 	}
 	
 	// this function determines where the next position of the player is by reading keyboard input

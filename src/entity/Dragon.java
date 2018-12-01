@@ -28,7 +28,9 @@ public class Dragon extends Entity {
 	private static final int FALLING = 3;
 	private static final int SHOOTING = 4;
 	private static final int PUNCHING = 5;
-	private static final int GLIDING = 6;	
+	private static final int GLIDING = 6;
+	private static final int FLINCHING = 7;
+	
 	public Dragon(double floor) {
 		
 		super(floor);
@@ -48,11 +50,11 @@ public class Dragon extends Entity {
 		
 		isFacingRight = true;
 		
-		health = maxHealth = 150;
+		health = maxHealth = 50;
 		
-		shootDamage = 1;
+		shootDamage = 2;
 		fireBalls = new ArrayList<FireBall>();
-		punchDamage = 2;
+		punchDamage = 4;
 		punchRange = 40;
 		
 		// load sprites
@@ -103,6 +105,7 @@ public class Dragon extends Entity {
 	
 	public void checkProjectiles(Entity enemy) {
 		// shoots
+		// checks if we are hitting the enemy
 		for (int i = 0; i < fireBalls.size(); i++) {
 			if(fireBalls.get(i).intersects(enemy)) {
 				fireBalls.get(i).setHit();
@@ -110,6 +113,13 @@ public class Dragon extends Entity {
 				
 			}
 		}
+		
+	}
+	
+	public void checkAttack(Entity enemy) {
+		
+		this.checkProjectiles(enemy);
+		super.checkCloseAttack(enemy);
 	}
 	
 	// this function determines where the next position of the player is by reading keyboard input
@@ -180,6 +190,7 @@ public class Dragon extends Entity {
 		getNextPosition();
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);
+		
 		
 		// check attacks
 		if(currentAction == PUNCHING) {
@@ -282,10 +293,6 @@ public class Dragon extends Entity {
 	
 	public void draw(Graphics2D graphics) {
 		
-		// setMapPosition();
-		
-		// draw player
-
 		// draw fireballs
 		for (int i = 0; i < fireBalls.size(); i++) {
 			fireBalls.get(i).draw(graphics);	
@@ -298,7 +305,10 @@ public class Dragon extends Entity {
 				return;
 			}
 		}
-		
+		// draw player
 		super.draw(graphics);
+		
+		
+	
 	}
 }
