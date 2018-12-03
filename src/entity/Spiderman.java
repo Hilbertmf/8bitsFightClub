@@ -51,11 +51,11 @@ public class Spiderman extends Entity {
 		
 		isFacingRight = true;
 		
-		health = maxHealth = 40;
+		health = maxHealth = 50;
 		
 		stickywebs = new ArrayList<Stickyweb>();
-		shootDamage = 1;
-		punchDamage = 2;
+		shootDamage = 3;
+		punchDamage = 5;
 		punchRange = 40;
 		
 		// load sprites

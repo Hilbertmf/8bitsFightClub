@@ -55,9 +55,9 @@ public class Megaman extends Entity {
 		
 		health = maxHealth = 75;
 		
-		shootDamage = 1;
+		shootDamage = 2;
 		bullets = new ArrayList<Bullet>();
-		punchDamage = 2;
+		punchDamage = 3;
 		punchRange = 40;
 		
 		// load sprites
