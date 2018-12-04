@@ -187,13 +187,13 @@ public class Spiderman extends Entity {
 			if(animation.hasPlayedOnce()) isShooting = false;
 		}
 		
-		// shooting attack
-		if(isShooting && currentAction != SHOOTING) {
+		// shooting attack and fix exploit of spamming shots
+		if(isShooting && currentAction != SHOOTING && !isPunching) {
 			Stickyweb s = new Stickyweb(floor, isFacingRight);
 			s.setPosition(x, y);
 			stickywebs.add(s);
 		}
-		// update stickies
+		// update shots
 		for (int i = 0; i < stickywebs.size(); i++) {
 			stickywebs.get(i).update();
 			if(stickywebs.get(i).shouldRemove()) {
@@ -303,14 +303,11 @@ public class Spiderman extends Entity {
 			if(elapsed / 100 % 2 == 0) 
 				return;
 		}
-		
+
 		// draw player
 		super.draw(graphics);
 		
 		
 	}
-
-	public void setGliding(boolean b) { }
-	
 	
 }

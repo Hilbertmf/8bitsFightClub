@@ -12,12 +12,11 @@ public class PlayState extends GameState {
 
 	private Background background;
 	private double floor;
-	// teste
 	private HUD hud1;
 	private HUD hud2;
-	private Entity player1;
+	private static Entity player1;
 	private boolean isPlayer1Dragon;
-	private Entity player2;
+	private static Entity player2;
 	private boolean isPlayer2Dragon;
 	
 	
@@ -28,6 +27,8 @@ public class PlayState extends GameState {
 		
 	}
 	
+	public static Entity getPlayer1() { return player1; }
+	public static Entity getPlayer2() { return player2; }
 
 	private void checkCharacters() {
 		
@@ -99,15 +100,11 @@ public class PlayState extends GameState {
 		player2.update();
 		
 		// attack
-		//player1.checkCloseAttack(player2);
 		if(!player2.isDead())
 			player1.checkAttack(player2);
-			//player1.checkProjectiles(player2);
 		
-		player2.checkCloseAttack(player1);
 		if(!player1.isDead())
 			player2.checkAttack(player1);
-			//player2.checkProjectiles(player1);
 		
 	}
 	public void draw(Graphics2D graphics) {
@@ -134,12 +131,13 @@ public class PlayState extends GameState {
 			gsm.setCurrentState(GameStateManager.PAUSE);
 		}
 		
-		if(!player1.isDead()) {	
 		// player 1
+		if(!player1.isDead()) {	
+
 			if(key == KeyEvent.VK_D) {
 				player1.setRight(true);
 			}
-			if(key == KeyEvent.VK_A) {
+			else if(key == KeyEvent.VK_A) {
 				player1.setLeft(true);
 			}
 			if(key == KeyEvent.VK_W) {
@@ -148,7 +146,7 @@ public class PlayState extends GameState {
 			if(key == KeyEvent.VK_J) {
 				player1.setShooting();
 			}
-			if(key == KeyEvent.VK_K) {
+			else if(key == KeyEvent.VK_K) {
 				player1.setPunching();
 			}
 			if(key == KeyEvent.VK_L) {
@@ -158,13 +156,14 @@ public class PlayState extends GameState {
 					player1.setSliding();
 			}
 		}
-		
-		if(!player2.isDead()) {
+
 		// player 2
+		if(!player2.isDead()) {
+
 			if(key == KeyEvent.VK_RIGHT) {
 				player2.setRight(true);
 			}
-			if(key == KeyEvent.VK_LEFT) {
+			else if(key == KeyEvent.VK_LEFT) {
 				player2.setLeft(true);
 			}
 			if(key == KeyEvent.VK_UP) {
@@ -173,7 +172,7 @@ public class PlayState extends GameState {
 			if(key == KeyEvent.VK_NUMPAD1) {
 				player2.setShooting();	
 			}
-			if(key == KeyEvent.VK_NUMPAD2) {
+			else if(key == KeyEvent.VK_NUMPAD2) {
 				player2.setPunching();
 			}
 			if(key == KeyEvent.VK_NUMPAD3) {
@@ -187,8 +186,6 @@ public class PlayState extends GameState {
 		
 	}
 	public void keyReleased(int key) {
-		
-		
 		
 		// player 1
 		if(key == KeyEvent.VK_D) {

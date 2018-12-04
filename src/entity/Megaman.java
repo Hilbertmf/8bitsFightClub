@@ -63,7 +63,6 @@ public class Megaman extends Entity {
 		// load sprites
 		try {
 			
-			//BufferedImage spriteSheet = ImageIO.read(new FileInputStream("resources/sprites/player/megamanSpriteSheet.png"));
 			BufferedImage spriteSheet = ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/sprites/player/megamanSpriteSheet.png"));
 			
 			sprites = new ArrayList<BufferedImage[]>();
@@ -72,7 +71,7 @@ public class Megaman extends Entity {
 				
 				for(int j = 0; j < numFrames[i]; j++) {
 					
-			bi[j] = spriteSheet.getSubimage(j * width, i * height, width, height);
+					bi[j] = spriteSheet.getSubimage(j * width, i * height, width, height);
 					
 				}
 				
@@ -181,12 +180,7 @@ public class Megaman extends Entity {
 			
 			dy += fallSpeed;
 			
-			 if(dy > 0) isJumping = false;
-			// this makes the longer you hold the jump button the higher you'll jump
-			/*
-			 if(dy < 0 && !isJumping) dy += stopJumpSpeed;
-			 if(dy > maxFallSpeed) dy = maxFallSpeed;
-			 */
+			if(dy > 0) isJumping = false;
 			 
 		}
 		
@@ -245,7 +239,7 @@ public class Megaman extends Entity {
 			if(currentAction != SHOOTING) {
 				currentAction = SHOOTING;
 				animation.setFrames(sprites.get(SHOOTING));
-				animation.setDelay(100);
+				animation.setDelay(70);
 				width = 30;
 			}
 		}

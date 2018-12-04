@@ -28,6 +28,8 @@ public class GameStateManager {
 	
 	public void setCurrentState(int state) {
 		currentState = state;
+	}
+	public void initState(int state) {
 		gameStates.get(currentState).init();
 	}
 	

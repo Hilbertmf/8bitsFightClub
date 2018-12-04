@@ -76,6 +76,7 @@ public class CharacterSelectState extends GameState {
 				player2Choice = DRAGON;
 				hasHappened = true;
 				gsm.setCurrentState(GameStateManager.PLAYSTATE);
+				gsm.initState(GameStateManager.PLAYSTATE);
 			}
 		}
 		if(currentChoice == MEGAMAN) {
@@ -87,6 +88,7 @@ public class CharacterSelectState extends GameState {
 				player2Choice = MEGAMAN;
 				hasHappened = true;
 				gsm.setCurrentState(GameStateManager.PLAYSTATE);
+				gsm.initState(GameStateManager.PLAYSTATE);
 			}
 		}
 		if(currentChoice == BATMAN) {
@@ -98,6 +100,7 @@ public class CharacterSelectState extends GameState {
 				player2Choice = BATMAN;
 				hasHappened = true;
 				gsm.setCurrentState(GameStateManager.PLAYSTATE);
+				gsm.initState(GameStateManager.PLAYSTATE);
 			}
 		}
 		if(currentChoice == SPIDERMAN) {
@@ -109,11 +112,13 @@ public class CharacterSelectState extends GameState {
 				player2Choice = SPIDERMAN;
 				hasHappened = true;
 				gsm.setCurrentState(GameStateManager.PLAYSTATE);
+				gsm.initState(GameStateManager.PLAYSTATE);
 			}
 		}
 		if(currentChoice == TUTORIAL) {
 			Help.shouldReturnToEntry = false;
 			gsm.setCurrentState(GameStateManager.HELP);
+			gsm.initState(GameStateManager.PLAYSTATE);
 		}
 		if(currentChoice == EXIT) {
 			System.exit(0);

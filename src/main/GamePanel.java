@@ -1,5 +1,6 @@
 package main;
 
+import javax.sound.sampled.*;
 import javax.swing.JPanel;
 
 import gameState.*;
@@ -32,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		requestFocus();
 	}
 
-	
+	// if the thread is null
 	public void addNotify() { 
 		super.addNotify();
 		if(thread == null) {

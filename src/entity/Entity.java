@@ -31,15 +31,10 @@ public abstract class Entity {
 	protected double ydest;
 	protected double xtemp;
 	protected double ytemp;
-	protected boolean topLeft;
-	protected boolean topRight;
 	protected boolean bottom;
 	protected boolean roof;
 	protected boolean leftFrontier;
 	protected boolean rightFrontier;
-	
-//	protected boolean bottomLeft;
-//	protected boolean bottomRight;
 	
 	// player stuff
 	protected int health;
@@ -90,8 +85,6 @@ public abstract class Entity {
 		this.floor = floor;
 		isFalling = false;
 		isJumping = false;
-	//	this.tileMap = tileMap;
-	//	tileSize = tileMap.getTileSize();
 		
 	}
 	
@@ -101,13 +94,13 @@ public abstract class Entity {
 		Rectangle r2 = entity.getRectangle();
 		return r1.intersects(r2);
 	}
+	
 	public Rectangle getRectangle() {
 		return new Rectangle((int)x - collisionWidth, (int)y - collisionHeight, collisionWidth, collisionHeight);
 	}
 	
 	public void calculateCorners(double x, double y) {
 		
-		// bottomLeft is true if we are on the ground
 		bottom = y >= floor;
 		roof = y <= 0;
 		leftFrontier = x <= 0;
@@ -146,7 +139,7 @@ public abstract class Entity {
 				dy = 0;
 				// not falling anymore, we've hit the ground
 				isFalling = false;
-				// set the y position to just 1 px above where we landed
+				// set the y position to just above where we landed
 				ytemp = y + 2; 
 			}
 			else {
@@ -238,8 +231,8 @@ public abstract class Entity {
 	public void checkCloseAttack(Entity enemy) {
 		if(isPunching) {
 			if(isFacingRight) {
-				if((enemy.getx()  - (enemy.getWidth() - enemy.getCollisionWidth())) > x &&
-				   (enemy.getx()  - (enemy.getWidth() - enemy.getCollisionWidth())) < x + punchRange &&
+				if((enemy.getx()  - enemy.getCollisionWidth()/2 ) > x &&
+				   (enemy.getx()  + enemy.getCollisionWidth()) <= x + punchRange &&
 				   enemy.gety() > y - height/2 &&
 				   enemy.gety() < y + height/2) {
 					
@@ -288,7 +281,6 @@ public abstract class Entity {
 			graphics.drawImage(animation.getImage(),(int)(x + width), (int)y, -width, height, null);
 		
 		}
-		
 		
 	}
 	 

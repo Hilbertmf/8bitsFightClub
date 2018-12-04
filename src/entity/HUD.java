@@ -33,7 +33,7 @@ public class HUD {
 	public void draw(Graphics2D graphics) {
 		graphics.drawImage(image, 0, 30, null);
 		graphics.setFont(font);
-		graphics.drawString(player.getHealth() + "/" + player.getMaxHealth(), 15, 45);
+		graphics.drawString(player.getHealth() + "/" + player.getMaxHealth(), 29, 45);
 	}
 	public void drawInverted(Graphics2D graphics) {
 		graphics.drawImage(image, GamePanel.WIDTH, 30, -width, height, null);

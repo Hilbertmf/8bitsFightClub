@@ -200,8 +200,8 @@ public class Dragon extends Entity {
 			if(animation.hasPlayedOnce()) isShooting = false;
 		}
 		
-		// fireball attack
-		if(isShooting && currentAction != SHOOTING) {
+		// fireball attack and fix exploit of spamming shots
+		if(isShooting && currentAction != SHOOTING && !isPunching) {
 			FireBall fb = new FireBall(floor, isFacingRight);
 			fb.setPosition(x, y);
 			fireBalls.add(fb);
@@ -307,8 +307,6 @@ public class Dragon extends Entity {
 		}
 		// draw player
 		super.draw(graphics);
-		
-		
 	
 	}
 }

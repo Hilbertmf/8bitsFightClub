@@ -34,8 +34,8 @@ public class Batman extends Entity {
 		
 		width = 30;
 		height = 30;
-		collisionWidth = 18;
-		collisionHeight = 18;
+		collisionWidth = 15;
+		collisionHeight = 15;
 		
 		// x
 		moveSpeed = 0.3;
@@ -160,13 +160,8 @@ public class Batman extends Entity {
 			
 			dy += fallSpeed;
 			
-			 if(dy > 0) isJumping = false;
-			// this makes the longer you hold the jump button the higher you'll jump
-			/*
-			 if(dy < 0 && !isJumping) dy += stopJumpSpeed;
-			 if(dy > maxFallSpeed) dy = maxFallSpeed;
-			 */
-			 
+			if(dy > 0) isJumping = false;
+				 
 		}
 		
 	}
@@ -187,8 +182,8 @@ public class Batman extends Entity {
 			if(animation.hasPlayedOnce()) isShooting = false;
 		}
 		
-		// shooting attack
-		if(isShooting && currentAction != SHOOTING) {
+		// shooting attack and fix exploit of spamming shots
+		if(isShooting && currentAction != SHOOTING && !isPunching) {
 			Batarang b = new Batarang(floor, isFacingRight);
 			b.setPosition(x, y);
 			batarangs.add(b);
@@ -213,15 +208,7 @@ public class Batman extends Entity {
 		}
 
 		// set animation
-		if(isPunching) {
-			if(currentAction != PUNCHING) {
-				currentAction = PUNCHING;
-				animation.setFrames(sprites.get(PUNCHING));
-				animation.setDelay(50);
-				width = 30;
-			}
-		}
-		else if(isShooting) {
+		if(isShooting) {
 			if(currentAction != SHOOTING) {
 				currentAction = SHOOTING;
 				animation.setFrames(sprites.get(SHOOTING));
@@ -229,6 +216,15 @@ public class Batman extends Entity {
 				width = 30;
 			}
 		}
+		else if(isPunching) {
+			if(currentAction != PUNCHING) {
+				currentAction = PUNCHING;
+				animation.setFrames(sprites.get(PUNCHING));
+				animation.setDelay(50);
+				width = 30;
+			}
+		}
+		
 		else if(isSliding) {
 			if(currentAction != SLIDING) {
 				currentAction = SLIDING;
@@ -299,7 +295,6 @@ public class Batman extends Entity {
 
 		
 		// flinching mechanic that blinks the player when he takes damage
-		
 		if(isFlinching) {
 			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
 			if(elapsed / 100 % 2 == 0) {
@@ -307,14 +302,10 @@ public class Batman extends Entity {
 			}
 		}
 		
-		
 		// draw player
 		super.draw(graphics);
 		
-		
 	}
 
-	public void setGliding(boolean b) { }
-	
 	
 }

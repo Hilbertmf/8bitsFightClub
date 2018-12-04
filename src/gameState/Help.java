@@ -32,7 +32,6 @@ public class Help  extends GameState{
 		graphics.setColor(Color.WHITE);
 		graphics.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 		graphics.setColor(Color.BLACK);
-		//graphics.drawString("SO DEUS AJUDA", 100, 100);
 		graphics.drawString("CONTROLS", 125, 20);
 		graphics.drawString("PLAYER 1", 50, 50);
 		graphics.drawString("Up: W", 50, 70);

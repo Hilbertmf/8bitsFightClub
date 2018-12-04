@@ -46,41 +46,35 @@ public class Batarang extends Entity {
 	}
 	
 	// gets called to figure out whether or not the bullet has hit something
-		public void setHit() {
-			if(hasHit) return;
-			
-			hasHit = true;
-			animation.setFrames(hitSprites);
-			animation.setDelay(200);
-			dx = 0;
+	public void setHit() {
+		if(hasHit) return;
+		
+		hasHit = true;
+		animation.setFrames(hitSprites);
+		animation.setDelay(200);
+		dx = 0;
+	}
+	
+	public boolean shouldRemove() { return shouldRemove; }
+	
+	public void update() {
+		
+		checkTileMapCollision();
+		setPosition(xtemp, ytemp);
+		
+		if(dx == 0 & !hasHit) {
+			setHit();
 		}
 		
-		public boolean shouldRemove() { return shouldRemove; }
-		
-		public void update() {
-			
-			checkTileMapCollision();
-			setPosition(xtemp, ytemp);
-			
-			if(dx == 0 & !hasHit) {
-				setHit();
-			}
-			
-			animation.update();
-			if(hasHit && animation.hasPlayedOnce()) {
-				shouldRemove = true;
-			}
+		animation.update();
+		if(hasHit && animation.hasPlayedOnce()) {
+			shouldRemove = true;
 		}
+	}
+	
+	public void draw(Graphics2D graphics) {
 		
-		public void draw(Graphics2D graphics) {
-			if(isRight) {
-				graphics.drawImage(animation.getImage(),(int)x, (int)y, null);
-			}
-			// draws the sprite inverted to left
-			else {
-				graphics.drawImage(animation.getImage(),(int)(x + width), (int)y, -width, height, null);
-			
-			}
-		}
+		super.draw(graphics);
+	}
 
 }

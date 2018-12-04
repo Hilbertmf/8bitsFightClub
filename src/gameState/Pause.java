@@ -12,7 +12,7 @@ public class Pause extends GameState {
 	private int currentChoice;
 	private String[] options = {
 			"Resume",
-			"Back to Menu",
+			"Menu",
 			"Quit"
 	};
 	
@@ -33,9 +33,12 @@ public class Pause extends GameState {
 	public void select() {
 		if(currentChoice == 0) {
 			gsm.setCurrentState(GameStateManager.PLAYSTATE);
+			if(PlayState.getPlayer1().isDead() || PlayState.getPlayer2().isDead())
+				gsm.initState(GameStateManager.PLAYSTATE);
 		}
 		if(currentChoice == 1) {
 			gsm.setCurrentState(GameStateManager.CHARACTERSELECTSTATE);
+			gsm.initState(GameStateManager.CHARACTERSELECTSTATE);
 		}
 		if(currentChoice == 2) {
 			System.exit(0);

@@ -69,6 +69,7 @@ public class EntryState extends GameState {
 		if(currentChoice == 0) {
 			//start
 			gsm.setCurrentState(GameStateManager.CHARACTERSELECTSTATE);
+			gsm.initState(GameStateManager.CHARACTERSELECTSTATE);
 		}
 		if(currentChoice == 1) {
 			//help
