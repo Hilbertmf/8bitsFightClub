@@ -229,7 +229,7 @@ public abstract class Entity {
 		if(isPunching) {
 			if(isFacingRight) {
 				if((enemy.getx()  - enemy.getCollisionWidth()/2 ) > x &&
-				   (enemy.getx()  + enemy.getCollisionWidth()) <= x + punchRange &&
+				   (enemy.getx()  + enemy.getCollisionWidth()/2) <= x + punchRange &&
 				   enemy.gety() > y - height/2 &&
 				   enemy.gety() < y + height/2) {
 					

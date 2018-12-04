@@ -36,8 +36,8 @@ public class Megaman extends Entity {
 		
 		width = 30;
 		height = 30;
-		collisionWidth = 10;
-		collisionHeight = 10;
+		collisionWidth = 12;
+		collisionHeight = 12;
 		
 		// x
 		moveSpeed = 0.3;
@@ -52,7 +52,7 @@ public class Megaman extends Entity {
 		
 		isFacingRight = true;
 		
-		health = maxHealth = 75;
+		health = maxHealth = 80;
 		
 		shootDamage = 2;
 		bullets = new ArrayList<Bullet>();

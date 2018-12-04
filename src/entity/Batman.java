@@ -51,7 +51,7 @@ public class Batman extends Entity {
 		
 		isFacingRight = true;
 		
-		health = maxHealth = 85;
+		health = maxHealth = 75;
 		
 		batarangs = new ArrayList<Batarang>();
 		shootDamage = 2;
