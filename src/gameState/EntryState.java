@@ -1,12 +1,15 @@
 package gameState;
 import java.awt.*;
 import java.awt.event.*;
+
+import audio.MusicPlayer;
 import tileMap.*;
 import main.GamePanel;
 
 public class EntryState extends GameState {
 	
 	private Background background;
+	public static MusicPlayer music = new MusicPlayer("resources/audio/megaman3.wav");
 	
 	private int currentChoice;
 	private String[] options = {
@@ -28,12 +31,19 @@ public class EntryState extends GameState {
 	public void init() {
 		
 		try {
-			
+			music.playSound();
 			background = new Background("resources/backgrounds/banner.jpg", 1);
 		} 
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void playMusic() {
+		music.playSound();
+	}
+	public static void stopMusic() {
+		music.stop();
 	}
 	
 	public void update() {

@@ -1,14 +1,11 @@
 package entity;
 
-import tileMap.*;
 
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 
 public class Dragon extends Entity {
 	
@@ -101,7 +98,27 @@ public class Dragon extends Entity {
 	}
 	
 	
-	
+	public void checkCloseAttack(Entity enemy) {
+		if(isPunching) {
+			if(isFacingRight) {
+				if((enemy.getx()  - enemy.getCollisionWidth()/2 ) > x &&
+				   (enemy.getx()  - enemy.getCollisionWidth() ) <= x + punchRange &&
+				   enemy.gety() > y - height/2 &&
+				   enemy.gety() < y + height/2) {
+					
+					enemy.wasHit(punchDamage);
+				}
+			}
+			else {
+				if((enemy.getx()  - (enemy.getWidth() - enemy.getCollisionWidth())) < x &&
+				  (enemy.getx()  - (enemy.getWidth() - enemy.getCollisionWidth())) > x - punchRange &&
+				   enemy.gety() > y - height/2 &&
+				   enemy.gety() < y + height/2) {
+					enemy.wasHit(punchDamage);
+				}
+			}
+		}
+	}
 	
 	public void checkProjectiles(Entity enemy) {
 		// shoots
@@ -119,7 +136,7 @@ public class Dragon extends Entity {
 	public void checkAttack(Entity enemy) {
 		
 		this.checkProjectiles(enemy);
-		super.checkCloseAttack(enemy);
+		checkCloseAttack(enemy);
 	}
 	
 	// this function determines where the next position of the player is by reading keyboard input

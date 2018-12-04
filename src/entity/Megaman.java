@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 
 public class Megaman extends Entity {
 	

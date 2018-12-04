@@ -9,7 +9,6 @@ import tileMap.Background;
 
 public class Help  extends GameState{
 
-	private Background background;
 	public static boolean shouldReturnToEntry;
 	
 	public Help(GameStateManager gsm) {

@@ -3,7 +3,6 @@ package tileMap;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 import main.GamePanel;

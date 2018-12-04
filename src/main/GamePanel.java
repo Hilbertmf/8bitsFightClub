@@ -1,6 +1,5 @@
 package main;
 
-import javax.sound.sampled.*;
 import javax.swing.JPanel;
 
 import gameState.*;
@@ -58,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	public void run() {
 
 		init();
+		
 
 		int FPS = 45;
 		int targetTime = 1000 / FPS;

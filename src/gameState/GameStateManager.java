@@ -29,6 +29,10 @@ public class GameStateManager {
 	public void setCurrentState(int state) {
 		currentState = state;
 	}
+	public GameState getState(int state) {
+		return gameStates.get(state);
+	}
+	
 	public void initState(int state) {
 		gameStates.get(currentState).init();
 	}

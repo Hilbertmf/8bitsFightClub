@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import audio.MusicPlayer;
 import main.GamePanel;
 
 public class CharacterSelectState extends GameState {
@@ -36,6 +37,8 @@ public class CharacterSelectState extends GameState {
 	private BufferedImage batmanModel;
 	private BufferedImage spidermanModel;
 	
+	MusicPlayer music = new MusicPlayer("resources/audio/topGear.wav");
+	
 	public CharacterSelectState (GameStateManager gsm) {
 		this.gsm = gsm;
 		init();
@@ -46,7 +49,7 @@ public class CharacterSelectState extends GameState {
 		isPlayer1Turn = true;
 		currentChoice = 0;
 		try {
-			
+			music.stop();
 			dragonModel = ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/sprites/player/dragonModel.png"));
 			megamanModel = ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/sprites/player/megamanModel.png"));
 			batmanModel = ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/sprites/player/batmanModel.png"));
@@ -77,6 +80,9 @@ public class CharacterSelectState extends GameState {
 				hasHappened = true;
 				gsm.setCurrentState(GameStateManager.PLAYSTATE);
 				gsm.initState(GameStateManager.PLAYSTATE);
+				EntryState.stopMusic();
+				music.playSound();
+				
 			}
 		}
 		if(currentChoice == MEGAMAN) {
@@ -89,6 +95,8 @@ public class CharacterSelectState extends GameState {
 				hasHappened = true;
 				gsm.setCurrentState(GameStateManager.PLAYSTATE);
 				gsm.initState(GameStateManager.PLAYSTATE);
+				EntryState.stopMusic();
+				music.playSound();
 			}
 		}
 		if(currentChoice == BATMAN) {
@@ -101,6 +109,8 @@ public class CharacterSelectState extends GameState {
 				hasHappened = true;
 				gsm.setCurrentState(GameStateManager.PLAYSTATE);
 				gsm.initState(GameStateManager.PLAYSTATE);
+				EntryState.stopMusic();
+				music.playSound();
 			}
 		}
 		if(currentChoice == SPIDERMAN) {
@@ -113,12 +123,13 @@ public class CharacterSelectState extends GameState {
 				hasHappened = true;
 				gsm.setCurrentState(GameStateManager.PLAYSTATE);
 				gsm.initState(GameStateManager.PLAYSTATE);
+				EntryState.stopMusic();
+				music.playSound();
 			}
 		}
 		if(currentChoice == TUTORIAL) {
 			Help.shouldReturnToEntry = false;
 			gsm.setCurrentState(GameStateManager.HELP);
-			gsm.initState(GameStateManager.PLAYSTATE);
 		}
 		if(currentChoice == EXIT) {
 			System.exit(0);

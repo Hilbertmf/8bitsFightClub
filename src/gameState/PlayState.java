@@ -3,10 +3,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.*;
 
+import audio.MusicPlayer;
 import entity.*;
 import main.GamePanel;
 import tileMap.Background;
-import tileMap.TileMap;
 
 public class PlayState extends GameState {
 
@@ -18,12 +18,14 @@ public class PlayState extends GameState {
 	private boolean isPlayer1Dragon;
 	private static Entity player2;
 	private boolean isPlayer2Dragon;
+	MusicPlayer music = new MusicPlayer("resources/audio/topGear.wav");
 	
 	
 	public PlayState(GameStateManager gsm) {
 		
 		this.gsm = gsm;
 		init();
+		
 		
 	}
 	
@@ -72,6 +74,7 @@ public class PlayState extends GameState {
 	public void init() {
 		
 		try {
+			
 			background = new Background("resources/backgrounds/background-road.png", 1);
 			floor = 165;
 			

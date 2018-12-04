@@ -4,11 +4,9 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import main.GamePanel;
-import tileMap.Background;
 
 public class Pause extends GameState {
 
-	private Background background;
 	private int currentChoice;
 	private String[] options = {
 			"Resume",
@@ -38,7 +36,9 @@ public class Pause extends GameState {
 		}
 		if(currentChoice == 1) {
 			gsm.setCurrentState(GameStateManager.CHARACTERSELECTSTATE);
+			EntryState.playMusic();
 			gsm.initState(GameStateManager.CHARACTERSELECTSTATE);
+			
 		}
 		if(currentChoice == 2) {
 			System.exit(0);

@@ -3,9 +3,6 @@ package entity;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import main.GamePanel;
-import tileMap.Tile;
-import tileMap.TileMap;
 
 public abstract class Entity {
 

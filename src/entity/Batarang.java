@@ -2,7 +2,6 @@ package entity;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 
 import javax.imageio.ImageIO;
 
