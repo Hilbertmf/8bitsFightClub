@@ -4,7 +4,7 @@ at IFCE.
 
 This is a 2d fighting game made to be played by 2 people using the same keyboard. It is guaranteed fun! <br>
 For playing you just have to download the file named 8bitsFightClub.jar and have the JVM in your machine. If you don't download it here: https://www.java.com/ES/download/ <br>
-Avaiable characters: <br>
+Available characters: <br>
 Dragon <br>
 Megaman <br>
 Batman <br>
