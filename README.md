@@ -1,5 +1,5 @@
 # 8bits Fight Club
-8bits Fight Club is a 2D Game in Java made for learning purposes during the subject of Object Oriented Programming taught by Lucas Sousa
+8bits Fight Club is a 2D Game in Java made for learning purposes during the subject of Object-oriented Programming taught by Lucas Sousa
 at IFCE.
 
 This is a 2d fighting game made to be played by 2 people using the same keyboard. It is guaranteed fun! <br>
