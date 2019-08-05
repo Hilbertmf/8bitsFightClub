@@ -1,4 +1,4 @@
-# PooGame
+# 8bits Fight Club
 8bits Fight Club is a 2D Game in Java made for learning purposes during the subject of Object Oriented Programming taught by Lucas Sousa
 at IFCE.
 
