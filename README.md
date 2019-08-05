@@ -3,11 +3,13 @@
 at IFCE.
 
 This is a 2d fighting game made to be played by 2 people using the same keyboard. It is guaranteed fun! <br>
+For playing you just have to download the .jar file and have the JVM in your machine. If you don't download it here: https://www.java.com/ES/download/ <br>
 Avaiable characters: <br>
 Dragon <br>
 Megaman <br>
 Batman <br>
 Spider-Man <br>
+
 
 Controls:
 
@@ -32,6 +34,7 @@ Slide/Glide: Numpad 3 <br>
 Este é um jogo em 2D feito em Java durante a disciplina de Programação Orientada a Objetos lecionada pelo professor Lucas Sousa no Instituto Federal de Ciência de Tecnologia do Ceará (IFCE)
 <br>
 Este é um jogo de luta feito para ser jogado por duas pessoas no mesmo teclado. É diversão garantida! <br>
+Para jogar basta baixar o arquivo chamado 8bits FightClub.jar e ter a jvm instalada no seu computador. Você pode baixá-la neste link: https://www.java.com/pt_BR/download/
 Personagens disponíveis: <br>
 Dragon <br>
 Megaman <br>
