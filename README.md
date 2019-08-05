@@ -11,21 +11,21 @@ Spider-Man <br>
 
 Controls:
 
-Player 1:
-Up: W
-Left: A
-Right: D
-Shoot: J
-Punch: K
-Slide/Glide: L
+Player 1: <br>
+Up: W <br>
+Left: A <br>
+Right: D <br>
+Shoot: J <br>
+Punch: K <br>
+Slide/Glide: L <br>
 
-Player 2:
-Up: Up-arrow
-Left: Left-arrow
-Right: Right-arrow
-Shoot: Numpad 1
-Punch: Numpad 2
-Slide/Glide: Numpad 3
+Player 2: <br>
+Up: Up-arrow <br>
+Left: Left-arrow <br>
+Right: Right-arrow <br>
+Shoot: Numpad 1 <br>
+Punch: Numpad 2 <br>
+Slide/Glide: Numpad 3 <br>
 
 
 
@@ -40,21 +40,21 @@ Spider-Man <br>
 
 Controles:
 
-Jogador 1:
-Cima: W
-Esquerda: A
-Direita: D
-Ataque à distância: J
-Soco: K
-Slide/Planar: L
+Jogador 1: <br>
+Cima: W <br>
+Esquerda: A <br>
+Direita: D <br>
+Ataque à distância: J <br>
+Soco: K <br>
+Slide/Planar: L <br>
 
-Jogador 1:
-Cima: Up-arrow
-Esquerda: Left-arrow
-Direita: Right-arrow
-Ataque à distância: Numpad 1
-Soco: Numpad 2
-Slide/Planar: Numpad 3
+Jogador 1: <br>
+Cima: Up-arrow <br>
+Esquerda: Left-arrow <br>
+Direita: Right-arrow <br>
+Ataque à distância: Numpad 1 <br>
+Soco: Numpad 2 <br>
+Slide/Planar: Numpad 3 <br>
 
 
 
