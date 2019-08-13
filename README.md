@@ -29,7 +29,7 @@ Shoot: Numpad 1 <br>
 Punch: Numpad 2 <br>
 Slide/Glide: Numpad 3 <br>
 
-
+![Screenshot of the game](https://raw.github.com/Hilbertmf/8bitsFightClub/blob/master/src/resources/screenshot.jpg)
 
 Este é um jogo em 2D feito em Java durante a disciplina de Programação Orientada a Objetos lecionada pelo professor Lucas Sousa no Instituto Federal de Ciência de Tecnologia do Ceará (IFCE)
 <br>
