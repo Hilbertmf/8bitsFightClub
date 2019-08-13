@@ -1,4 +1,7 @@
 # 8bits Fight Club
+
+![Screenshot of the game](/src/resources/screenshot.jpg?raw=true "Screenshot")
+
 8bits Fight Club is a 2D Game in Java made for learning purposes during the subject of Object-oriented Programming taught by Lucas Sousa
 at IFCE.
 
@@ -29,7 +32,6 @@ Shoot: Numpad 1 <br>
 Punch: Numpad 2 <br>
 Slide/Glide: Numpad 3 <br>
 
-![Screenshot of the game](/src/resources/screenshot.jpg?raw=true "Screenshot")
 
 Este é um jogo em 2D feito em Java durante a disciplina de Programação Orientada a Objetos lecionada pelo professor Lucas Sousa no Instituto Federal de Ciência de Tecnologia do Ceará (IFCE)
 <br>
