@@ -7,7 +7,7 @@
 at IFCE.
 
 This is a 2d fighting game made to be played by 2 people using the same keyboard. It is guaranteed fun! <br>
-For playing you just have to download the file named 8bitsFightClub.jar and have the JVM in your machine. If you don't download it here: https://www.java.com/ES/download/ <br>
+For playing you just have to download the file named 8bitsFightClub.jar and have java installed in your machine. If you don't download it here: [windows](https://www.java.com/en/download/) | [linux](https://www.java.com/en/download/help/linux_x64_install.html) <br>
 Available characters: <br>
 :dragon:Dragon <br>
 :robot:Megaman <br>
@@ -37,7 +37,7 @@ Player 2: <br>
 Este é um jogo em 2D feito em Java durante a disciplina de Programação Orientada a Objetos lecionada pelo professor Lucas Sousa no Instituto Federal de Ciência de Tecnologia do Ceará (IFCE)
 <br>
 Este é um jogo de luta feito para ser jogado por duas pessoas no mesmo teclado. É diversão garantida! <br>
-Para jogar basta baixar o arquivo chamado 8bitsFightClub.jar e ter a jvm instalada no seu computador. Você pode baixá-la neste link: https://www.java.com/pt_BR/download/ <br>
+Para jogar basta baixar o arquivo chamado 8bitsFightClub.jar e ter o java instalado no seu computador. Você pode baixá-la neste link: [windows](https://www.java.com/pt-BR/download/) | [linux](https://www.java.com/pt-BR/download/help/linux_x64_install.html) <br>
 Personagens disponíveis: <br>
 :dragon:Dragon <br>
 :robot:Megaman <br>
