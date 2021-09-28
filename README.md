@@ -3,20 +3,19 @@
 
 ![Screenshot of the game](/src/resources/screenshot.jpg?raw=true "Screenshot")
 
-8bits Fight Club is a 2D Game in Java made for learning purposes during the subject of Object-oriented Programming taught by Lucas Sousa
-at IFCE.
+8bits Fight Club is a 2D Game in made Java for learning purposes during the subject of Object-oriented Programming taught by Lucas Sousa at IFCE.
 
-This is a 2d fighting game made to be played by 2 people using the same keyboard. It is guaranteed fun! <br>
-For playing you just have to download the file named 8bitsFightClub.jar and have java installed in your machine. If you don't download it here: [windows](https://www.java.com/en/download/) | [linux](https://www.java.com/en/download/help/linux_x64_install.html) <br>
+This is a 2d fighting game made to be played by 2 people using the same keyboard. Have fun with your friends! <br>
+For playing you just have to download it [here](https://github.com/Hilbertmf/8bitsFightClub/raw/master/8BitsFightClub.jar) and have the Java Runtime installed in your machine.<br>
+If you don't have Java download it [here](https://www.java.com/en/download/manual.jsp)
+
 Available characters: <br>
 :dragon:Dragon <br>
 :robot:Megaman <br>
 :bat:Batman <br>
 :spider:Spider-Man <br>
 
-
-Controls:
-
+Controls: <br>
 Player 1: <br>
 :arrow_up:Up: W <br>
 :arrow_left:Left: A <br>
@@ -33,11 +32,12 @@ Player 2: <br>
 :boxing_glove:Punch: Numpad 2 <br>
 :airplane:Slide/Glide: Numpad 3 <br>
 
+### Português:
+Este é um jogo em 2D feito em Java durante a disciplina de Programação Orientada a Objetos lecionada pelo professor Lucas Sousa no Instituto Federal de Ciência de Tecnologia do Ceará (IFCE).<br>
+Este é um jogo de luta feito para ser jogado por duas pessoas no mesmo teclado. É diversão garantida!<br>
+Para jogar basta baixar [aqui](https://github.com/Hilbertmf/8bitsFightClub/raw/master/8BitsFightClub.jar) e ter o Java instalado no seu computador.<br>
+Você pode baixar o Java [aqui](https://www.java.com/en/download/manual.jsp).
 
-Este é um jogo em 2D feito em Java durante a disciplina de Programação Orientada a Objetos lecionada pelo professor Lucas Sousa no Instituto Federal de Ciência de Tecnologia do Ceará (IFCE)
-<br>
-Este é um jogo de luta feito para ser jogado por duas pessoas no mesmo teclado. É diversão garantida! <br>
-Para jogar basta baixar o arquivo chamado 8bitsFightClub.jar e ter o java instalado no seu computador. Você pode baixá-la neste link: [windows](https://www.java.com/pt-BR/download/) | [linux](https://www.java.com/pt-BR/download/help/linux_x64_install.html) <br>
 Personagens disponíveis: <br>
 :dragon:Dragon <br>
 :robot:Megaman <br>
@@ -61,8 +61,3 @@ Jogador 1: <br>
 :bow_and_arrow:Ataque à distância: Numpad 1 <br>
 :boxing_glove:Soco: Numpad 2 <br>
 :airplane:Slide/Planar: Numpad 3 <br>
-
-
-
-
-
