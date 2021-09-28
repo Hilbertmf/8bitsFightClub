@@ -35,7 +35,7 @@ If you don't have Java download it [here](https://www.java.com/en/download/manua
 :airplane:Slide/Glide: Numpad 3 <br>
 
 # Português:
-## About:
+## Sobre o jogo:
 Este é um jogo em 2D feito em Java durante a disciplina de Programação Orientada a Objetos lecionada pelo professor Lucas Sousa no Instituto Federal de Ciência de Tecnologia do Ceará (IFCE).<br>
 Este é um jogo de luta feito para ser jogado por duas pessoas no mesmo teclado. É diversão garantida!<br>
 Para jogar basta baixar [aqui](https://github.com/Hilbertmf/8bitsFightClub/raw/master/8BitsFightClub.jar) e ter o Java instalado no seu computador.<br>
