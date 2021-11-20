@@ -7,8 +7,11 @@
 8bits Fight Club is a 2D Game made in Java for learning purposes during the subject of Object-oriented Programming taught by Lucas Sousa at IFCE.<br>
 This is a 2D fighting game made to be played by 2 people using the same keyboard. Have fun with your friends! <br>
 For playing you just have to [download](https://github.com/Hilbertmf/8bitsFightClub/raw/master/8BitsFightClub.jar) it and have the Java Runtime installed in your machine.<br>
-If you don't have Java download it [here](https://www.java.com/en/download/manual.jsp)
-
+If you don't have Java download it [here](https://www.java.com/en/download/manual.jsp).<br>
+If you're on ubuntu just run this on the terminal to install java:
+```
+sudo apt install -y default-jre
+```
 ## Download
 [Jar File](https://github.com/Hilbertmf/8bitsFightClub/raw/master/8BitsFightClub.jar)
 ## Characters: <br>
@@ -39,7 +42,11 @@ If you don't have Java download it [here](https://www.java.com/en/download/manua
 Este é um jogo em 2D feito em Java durante a disciplina de Programação Orientada a Objetos lecionada pelo professor Lucas Sousa no Instituto Federal de Ciência de Tecnologia do Ceará (IFCE).<br>
 Este é um jogo de luta feito para ser jogado por duas pessoas no mesmo teclado. É diversão garantida!<br>
 Para jogar basta baixar [aqui](https://github.com/Hilbertmf/8bitsFightClub/raw/master/8BitsFightClub.jar) e ter o Java instalado no seu computador.<br>
-Você pode baixar o Java [aqui](https://www.java.com/en/download/manual.jsp).
+Você pode baixar o Java [aqui](https://www.java.com/en/download/manual.jsp).<br>
+Se você estiver usando ubuntu, execute no terminal para instalar o java:
+```
+sudo apt install -y default-jre
+```
 
 ## Personagens:
 :dragon:Dragon <br>
