@@ -4,7 +4,7 @@
 ![Screenshot of the game](/src/resources/screenshot.jpg?raw=true "Screenshot")
 
 ## About
-8bits Fight Club is a 2D Game in made Java for learning purposes during the subject of Object-oriented Programming taught by Lucas Sousa at IFCE.<br>
+8bits Fight Club is a 2D Game made in Java for learning purposes during the subject of Object-oriented Programming taught by Lucas Sousa at IFCE.<br>
 This is a 2D fighting game made to be played by 2 people using the same keyboard. Have fun with your friends! <br>
 For playing you just have to [download](https://github.com/Hilbertmf/8bitsFightClub/raw/master/8BitsFightClub.jar) it and have the Java Runtime installed in your machine.<br>
 If you don't have Java download it [here](https://www.java.com/en/download/manual.jsp)
