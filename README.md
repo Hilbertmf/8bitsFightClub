@@ -1,5 +1,4 @@
-# 8bits Fight Club:boxing_glove::video_game:
-
+# 8bits Fight Club :boxing_glove::video_game:
 
 ![Screenshot of the game](/src/resources/screenshot.jpg?raw=true "Screenshot")
 
@@ -12,6 +11,11 @@ If you're on ubuntu just run this on the terminal to install java:
 ```
 sudo apt install -y default-jre
 ```
+then to run do:
+```
+java -jar 8BitsFightClub.jar
+```
+If you're on windows install java and then just double click on the .jar file
 ## Download
 [Jar File](https://github.com/Hilbertmf/8bitsFightClub/raw/master/8BitsFightClub.jar)
 ## Characters: <br>
@@ -19,7 +23,6 @@ sudo apt install -y default-jre
 :robot:Megaman <br>
 :bat:Batman <br>
 :spider:Spider-Man <br>
-
 ## Controls:
 ### Player 1: <br>
 :arrow_up:Up: W <br>
@@ -47,7 +50,11 @@ Se você estiver usando ubuntu, execute no terminal para instalar o java:
 ```
 sudo apt install -y default-jre
 ```
-
+Depois faça na pasta onde baixou o jogo:
+```
+java -jar 8BitsFightClub.jar
+```
+Se você estiver usando windows, execute o arquivo .jar com duplo click.
 ## Personagens:
 :dragon:Dragon <br>
 :robot:Megaman <br>
